@@ -1,0 +1,27 @@
+# Keep Canoe Dock documentation-first. Do not commit private dumps or payloads.
+*.img
+*.bin
+*.elf
+*.mbn
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.*
+*.log
+*.raw
+*.dump
+*.bak
+*.backup
+*.apk
+*.apex
+*.so
+*.ko
+
+# Local working folders.
+work/
+tmp/
+private/
+backups/
+payloads/
+artifacts/
