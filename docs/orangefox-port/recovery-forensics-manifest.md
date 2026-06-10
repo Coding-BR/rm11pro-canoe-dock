@@ -3,7 +3,7 @@
 The local raw forensics folder is:
 
 ```text
-/home/richtofen/android/repositories/Main Assets/recovery-forensics
+/home/richtofen/android/repositories/MainAssets/recovery-forensics
 ```
 
 It contains raw recovery images, unpacked ramdisks, AVB output, headers, and file lists.
@@ -24,8 +24,8 @@ Tracked summaries instead:
 
 Local raw evidence folders:
 
-- `/home/richtofen/android/repositories/Main Assets/recovery-forensics/rm11-orangefox-2026-06-07`
-- `/home/richtofen/android/repositories/Main Assets/recovery-forensics/rm11-orangefox-avbtest1-2026-06-07`
+- `/home/richtofen/android/repositories/MainAssets/recovery-forensics/rm11-orangefox-2026-06-07`
+- `/home/richtofen/android/repositories/MainAssets/recovery-forensics/rm11-orangefox-avbtest1-2026-06-07`
 
 Important raw evidence classes:
 

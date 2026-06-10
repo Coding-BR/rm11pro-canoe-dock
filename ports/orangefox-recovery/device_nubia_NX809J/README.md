@@ -25,20 +25,20 @@
 
 ## Current Status
 
-This branch is an NX809J port with stock image evidence and live Android ADB evidence applied. It builds successfully and flashed to `recovery_a`, but the first OrangeFox boot test failed and routed the device to fastboot. Stock `recovery_a` rollback succeeded and Android boot was restored.
+This branch is an NX809J port with stock image evidence and live Android ADB evidence applied. It builds successfully. The latest confirmed device-side test wrote only `recovery_a` from rooted Android, reached the RedMagic logo, and did not reach OrangeFox UI or recovery ADB. Stock `recovery_a` rollback succeeded and Android boot was restored.
 
-AVBTEST1 was rebuilt after the image-format forensic pass with recovery-specific AVB signing metadata. It has not been flashed or boot-tested.
+The current local candidate keeps the recovery AVB signing metadata and also replaces the vendor_boot-derived fstab/init surfaces with stock-derived recovery fstab and stock-minimal qcom init. It has not been device-tested after that rebuild.
 
 | Feature | Status |
 |---------|--------|
 | Build | PASS (`OrangeFox-R12.0-Unofficial-NX809J.img` / `.zip`) |
-| AVBTEST1 rebuild | PASS; pre-flash image verification passed |
+| Stock-fstab/minimal-init rebuild | PASS; pre-flash image verification passed |
 | `fastboot boot` | FAIL (`Bad Buffer Size`) |
-| Flash `recovery_a` | PASS |
-| Boot to OrangeFox recovery | FAIL, routed to fastboot |
+| Write `recovery_a` from rooted Android | PASS |
+| Boot to OrangeFox recovery | FAIL, RedMagic logo hang |
 | Stock `recovery_a` rollback | PASS, Android boot restored |
-| Image format forensics | DONE; AVB footer/signing mismatch identified |
-| Current classification | `build-pass / flash-pass-old / boot-fail-old / rollback-pass / avb-signed rebuild ready for cautious test` |
+| Image format forensics | DONE; ramdisk-only recovery partition image confirmed |
+| Current classification | `build-pass / recovery_a-dd-test-fail / rollback-pass / stockfstab-mininit-candidate-built` |
 | OrangeFox UI | Not reached |
 | Touch | Android input baseline captured; recovery not validated |
 | ADB | Android root baseline captured; recovery not validated |
@@ -69,16 +69,17 @@ AVBTEST1 was rebuilt after the image-format forensic pass with recovery-specific
 - OrangeFox build evidence is recorded in [`docs/rm11-orangefox-build-pass-2026-06-07.md`](docs/rm11-orangefox-build-pass-2026-06-07.md).
 - OrangeFox failed boot and rollback evidence is recorded in [`docs/rm11-orangefox-flash-pass-boot-fail-rollback-pass-2026-06-07.md`](docs/rm11-orangefox-flash-pass-boot-fail-rollback-pass-2026-06-07.md).
 - Recovery image/header forensics are recorded in [`docs/rm11-orangefox-image-format-forensics-2026-06-07.md`](docs/rm11-orangefox-image-format-forensics-2026-06-07.md). Stock and OrangeFox are both Android boot image header v4 ramdisk-only recovery images, but stock has a signed `SHA256_RSA4096` recovery AVB footer and the failed OrangeFox image has `Algorithm: NONE`.
-- AVBTEST1 comparison evidence is recorded in [`docs/rm11-orangefox-avbtest1-image-format-comparison-2026-06-07.md`](docs/rm11-orangefox-avbtest1-image-format-comparison-2026-06-07.md). AVBTEST1 fixes the hard footer mismatch: `SHA256_RSA4096`, rollback index `1`, rollback location `0`, and auth block present.
+- AVBTEST1 comparison evidence is recorded in [`docs/rm11-orangefox-avbtest1-image-format-comparison-2026-06-07.md`](docs/rm11-orangefox-avbtest1-image-format-comparison-2026-06-07.md). AVBTEST1 fixed the hard footer mismatch: `SHA256_RSA4096`, rollback index `1`, rollback location `0`, and auth block present.
+- The 2026-06-09 logo-hang evidence is recorded in [`docs/rm11-orangefox-recovery-a-logo-hang-2026-06-09.md`](docs/rm11-orangefox-recovery-a-logo-hang-2026-06-09.md).
 
 ## Important Unknowns
 
 - Decryption is not solved yet. Android 16 system keystore, vendor onekeymint, gatekeeper, qsee, and related libraries are wired from `prebuilt/android16/`, but recovery-side FBE has not been boot-tested.
 - Vendor blobs and HAL services are still inherited from the RM10 tree unless explicitly replaced in `device.mk`.
 - The experimental NX809J kernel work is useful context, but this tree currently uses stock RM11 prebuilts as the baseline.
-- Recovery boot failed on the first test image. Live Android properties, by-name links, input device names, loaded modules, and basic sysfs paths have been captured. AVBTEST1 fixes the unsigned recovery footer mismatch but still uses a generated validation key, not the stock/OEM key.
-- The local OrangeFox source tree now exists at `~/fox_14.1`; build validation passed on 2026-06-07.
-- Do not publish or retest the original failed OrangeFox image. The next eligible device-side test is the AVBTEST1 image only, and only as a cautious controlled test with stock `recovery_a` rollback ready.
+- Recovery boot failed on the first rooted-Android `recovery_a` test image. Live Android properties, by-name links, input device names, loaded modules, and basic sysfs paths have been captured.
+- The local OrangeFox source tree now exists at `/home/richtofen/android/repositories/MainAssets/fox_14.1`; build validation passed again after the stock-fstab/minimal-init patch.
+- Do not publish or retest the original failed OrangeFox image. The next eligible device-side test is the stock-fstab/minimal-init image only, and only as a cautious controlled one-slot test with stock `recovery_a` rollback ready.
 
 ## Building
 
@@ -115,7 +116,9 @@ cd ~/OrangeFox_sync
 
 ```bash
 mkdir -p ~/fox_14.1/device/nubia
-git clone https://github.com/Fractal-Echo/rm11pro-orangefox-recovery ~/fox_14.1/device/nubia/NX809J
+git clone https://github.com/Fractal-Echo/rm11pro-canoe-dock ~/rm11pro-canoe-dock
+# Do not use --delete here; the local tree also holds untracked prebuilts and AVB test keys.
+rsync -a ~/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J/ ~/fox_14.1/device/nubia/NX809J/
 ```
 
 ### Build
@@ -133,18 +136,23 @@ Output should be at:
 out/target/product/NX809J/recovery.img
 ```
 
-## Flashing
+## Device-Side Testing
 
-Do not flash the original failed OrangeFox image again. The 2026-06-07 build flashed to `recovery_a` but failed to boot recovery and routed to fastboot. AVBTEST1 fixes the unsigned recovery footer mismatch and is ready only for a cautious controlled test. Keep stock `recovery_a` rollback available before any flash.
+Do not test with `fastboot boot`. The recovery output is a ramdisk-only recovery partition image sized to `recovery_a`, not a direct ramboot image.
 
-From Android with root:
+Do not flash the original failed OrangeFox image again. Keep stock `recovery_a` and `recovery_b` backups available before any test.
+
+For a first retest, write only the active recovery slot from Android with root:
 
 ```bash
 adb push recovery.img /sdcard/recovery.img
-adb shell su -c "dd if=/sdcard/recovery.img of=/dev/block/bootdevice/by-name/recovery_a"
-adb shell su -c "dd if=/sdcard/recovery.img of=/dev/block/bootdevice/by-name/recovery_b"
+adb shell su -c "dd if=/sdcard/recovery.img of=/dev/block/bootdevice/by-name/recovery_a bs=4M status=progress"
+adb shell su -c "sync"
 adb reboot recovery
 ```
+
+Do not write `recovery_b` until UI, ADB, touch, MTP, decryption expectations,
+and reboot-to-system have been checked.
 
 ## Credits
 

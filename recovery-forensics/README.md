@@ -5,7 +5,7 @@ This folder is a tracked pointer for local raw evidence from the RM11 OrangeFox 
 The raw images, unpacked ramdisks, headers, and generated payloads were moved out of the dock repo to:
 
 ```text
-/home/richtofen/android/repositories/Main Assets/recovery-forensics
+/home/richtofen/android/repositories/MainAssets/recovery-forensics
 ```
 
 The tracked summaries live in `docs/orangefox-port/`.

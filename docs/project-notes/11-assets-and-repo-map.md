@@ -123,4 +123,4 @@ Do not commit:
 - random stock firmware blobs.
 - giant reverse-engineering dumps.
 - personal patched boot/init_boot images unless deliberately releasing and documented.
-- raw recovery images inside the dock repo; they now live under `/home/richtofen/android/repositories/Main Assets/recovery-forensics`.
+- raw recovery images inside the dock repo; they now live under `/home/richtofen/android/repositories/MainAssets/recovery-forensics`.

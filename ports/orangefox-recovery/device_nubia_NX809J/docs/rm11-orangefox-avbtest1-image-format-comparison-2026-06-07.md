@@ -33,7 +33,7 @@ Device tree:
 Synced build tree copy:
 
 ```text
-/home/richtofen/android/repositories/Main Assets/fox_14.1/device/nubia/NX809J
+/home/richtofen/android/repositories/MainAssets/fox_14.1/device/nubia/NX809J
 ```
 
 Prebuild diff:
@@ -129,7 +129,7 @@ This removes the fake `99.87.36` / `2099-12-31` metadata without changing the bu
 Build command:
 
 ```bash
-cd "/home/richtofen/android/repositories/Main Assets/fox_14.1"
+cd "/home/richtofen/android/repositories/MainAssets/fox_14.1"
 source build/envsetup.sh
 lunch orangefox_NX809J-ap2a-eng
 mka -j8 adbd recoveryimage
@@ -189,7 +189,7 @@ OrangeFox-R12.0-Unofficial-NX809J-avbtest1.zip 74099422
 Side-by-side comparison workspace:
 
 ```text
-/home/richtofen/android/repositories/Main Assets/recovery-forensics/rm11-orangefox-avbtest1-2026-06-07
+/home/richtofen/android/repositories/MainAssets/recovery-forensics/rm11-orangefox-avbtest1-2026-06-07
 ```
 
 Images compared:

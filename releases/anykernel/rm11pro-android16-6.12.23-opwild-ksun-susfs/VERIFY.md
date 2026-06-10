@@ -3,6 +3,9 @@
 Before flashing:
 
 ```powershell
+cd \\wsl.localhost\Ubuntu\home\richtofen\android\repositories\rm11pro-canoe-dock
+.\scripts\verify-anykernel-package.ps1
+
 adb shell getprop ro.product.device
 adb shell getprop ro.product.model
 adb shell getprop ro.build.fingerprint
@@ -15,6 +18,7 @@ Required pre-flash state:
 - Device is RM11 Pro / NX809J.
 - Android baseline is Android 16.
 - Current kernel minor is `6.12.23`.
+- AnyKernel package hash and guardrails pass `scripts/verify-anykernel-package.ps1`.
 - Rollback images are present off-device.
 
 After flash:

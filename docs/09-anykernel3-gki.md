@@ -6,6 +6,12 @@ Known validated AnyKernel package:
 AK3_RM11Pro_Android16_6.12.23_KSUN_SuSFS_v2.1.0_TEST.zip
 ```
 
+Current local guarded package:
+
+```text
+/mnt/e/Android/RM-11-Pro/KERNELS/BUILDS/AK3_RM11Pro_Android16_6.12.23_KSUN_SuSFS_v2.1.0.zip
+```
+
 Final ZIP SHA-256:
 
 ```text
@@ -13,6 +19,23 @@ Final ZIP SHA-256:
 ```
 
 This is a validated test build, not a universal release. It is for RM11 Pro / NX809J Android 16 kernel `6.12.23` baseline only.
+
+Package guardrails observed in `anykernel.sh`:
+
+- device check enabled.
+- `NX809J` / `NX809J-UN` / RM11 model strings.
+- exact `6.12.23` kernel minor check.
+- boot partition target.
+- vbmeta patching disabled.
+
+Reference-only local package:
+
+```text
+/mnt/e/Android/RM-11-Pro/KERNELS/BUILDS/AnyKernel3_gki_6.12.23_Gold_bug.zip
+```
+
+Do not use that older package as the RM11 release/test candidate; it was
+observed with disabled device checks.
 
 Before flashing:
 

@@ -29,7 +29,7 @@ Excluded:
 - AVB private test keys and release key material.
 - `prebuilt/kernel`, `dtbo.img`, raw images, zips, and generated build payloads.
 - Vendor/system binaries, shared libraries, firmware blobs, and no-extension executable payloads.
-- Local full OrangeFox source tree at `/home/richtofen/android/repositories/Main Assets/fox_14.1`.
+- Local full OrangeFox source tree at `/home/richtofen/android/repositories/MainAssets/fox_14.1`.
 
 For the forensic narrative and current validation status, start at:
 

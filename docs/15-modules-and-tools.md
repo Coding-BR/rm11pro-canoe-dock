@@ -13,6 +13,27 @@ Known references from source material:
 - Droidspaces reference artifact path.
 - Fractal-Echo RM11 lab work.
 
+Current local paths:
+
+```text
+/mnt/e/Android/RM-11-Pro/MODULES
+/home/richtofen/android/toolbox/NubiaToolkit
+/home/richtofen/android/toolbox/Redmagic-Control-Center
+/home/richtofen/android/toolbox/reversa
+```
+
+Observed local module payloads:
+
+- `gpp-enable-module`: tiny module tree plus ZIP, local-only until tested.
+- `v34.3-Integrity-Box-04-04-2026`: contains scripts, DEX, keybox material, web UI, and native `.so` payloads; keep out of the public repo.
+- `attestation`: local-only binary/text artifact, not classified for release.
+
+Observed toolbox repos:
+
+- `NubiaToolkit`: LSPosed/root RedMagic customization app; local checkout contains a release key and build files, so only notes belong here.
+- `Redmagic-Control-Center`: root-level RedMagic hardware control app; use as APK customization/hardware-control research, not as a recovery prerequisite.
+- `reversa`: reverse-documentation framework; useful for APK/tooling analysis workflow notes.
+
 Module/testing notes should include:
 
 - Exact app/module version.

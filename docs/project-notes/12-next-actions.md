@@ -3,7 +3,7 @@
 ## Immediate
 
 1. Keep `rm11pro-canoe-dock` as the public dock, not a raw lab dump.
-2. Keep raw recovery forensics in `/home/richtofen/android/repositories/Main Assets/recovery-forensics`; dock keeps summaries and a pointer README only.
+2. Keep raw recovery forensics in `/home/richtofen/android/repositories/MainAssets/recovery-forensics`; dock keeps summaries and a pointer README only.
 3. Re-clone the upstream kernel tree only when kernel-source work resumes; the broken local checkout was deleted after notes were summarized.
 4. Add an image identity table for every boot/recovery/kernel image before further testing.
 

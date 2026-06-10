@@ -4,9 +4,9 @@ This records how the local OrangeFox source tree was created and which parts wer
 
 Local paths:
 
-- `/home/richtofen/android/repositories/Main Assets/OrangeFox_sync`: helper checkout used to sync and patch OrangeFox sources.
-- `/home/richtofen/android/repositories/Main Assets/fox_14.1`: full OrangeFox/TWRP source tree and build workspace; generated `out/` artifacts were deleted during cleanup.
-- `/home/richtofen/android/repositories/Main Assets/fox_14.1/device/nubia/NX809J`: copied OrangeFox device tree used for the RM11 build.
+- `/home/richtofen/android/repositories/MainAssets/OrangeFox_sync`: helper checkout used to sync and patch OrangeFox sources.
+- `/home/richtofen/android/repositories/MainAssets/fox_14.1`: full OrangeFox/TWRP source tree and build workspace; generated `out/` artifacts were deleted during cleanup.
+- `/home/richtofen/android/repositories/MainAssets/fox_14.1/device/nubia/NX809J`: copied OrangeFox device tree used for the RM11 build.
 - `/home/richtofen/android/repositories/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J`: current local fork path for the RM10 Pro to RM11 Pro OrangeFox device-tree port.
 
 Imported into this dock repo:
@@ -23,14 +23,14 @@ Imported into this dock repo:
 
 Not imported:
 
-- `/home/richtofen/android/repositories/Main Assets/fox_14.1`: full source tree; generated build output is intentionally absent after cleanup.
+- `/home/richtofen/android/repositories/MainAssets/fox_14.1`: full source tree; generated build output is intentionally absent after cleanup.
 - Deleted OrangeFox sync build logs, pid files, and status files.
 - Legacy fox_12.1 patches: retained locally but not needed for the RM11 fox_14.1 recovery line.
 
 Known build command:
 
 ```bash
-cd "/home/richtofen/android/repositories/Main Assets/fox_14.1"
+cd "/home/richtofen/android/repositories/MainAssets/fox_14.1"
 source build/envsetup.sh
 lunch orangefox_NX809J-ap2a-eng
 mka -j8 adbd recoveryimage

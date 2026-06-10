@@ -1,4 +1,4 @@
-# Copyright (c) 2017-2023, The Linux Foundation. All rights reserved.
+# Copyright (c) 2017-2018,2020-2021 The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -25,68 +25,19 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+# Stock NX809J recovery_a keeps the device hook minimal. Do not start
+# decryption, vibrator, touchscreen, firmware, fan, or LED vendor services
+# here until the recovery image reaches UI/ADB.
 on init
-    stop keystore2
-    stop vendor.keymint
-    start vendor.boot-qti
-    setprop prepdecrypt.setpatch true
+    write /sys/class/backlight/panel0-backlight/brightness 200
+    setprop sys.usb.configfs 1
 
-on early-fs
-    write /proc/sys/walt/sched_lib_name "recovery,magiskboot,Updater,updater,update_engine_sideload"
-    write /proc/sys/walt/sched_lib_mask_force 255
+on property:ro.boot.usbcontroller=*
+    setprop sys.usb.controller ${ro.boot.usbcontroller}
+    wait /sys/bus/platform/devices/${ro.boot.usb.dwc3_msm:-a600000.ssusb}/mode
+    write /sys/bus/platform/devices/${ro.boot.usb.dwc3_msm:-a600000.ssusb}/mode peripheral
+    wait /sys/class/udc/${ro.boot.usbcontroller} 1
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-    write /proc/sys/kernel/firmware_config/force_sysfs_fallback 1
-    chmod 0660 /dev/qseecom
-    chown system drmrpc /dev/qseecom
-    chmod 0664 /dev/ion
-    chown system system /dev/ion
-    mkdir /mnt/vendor 0775 shell system
-    mkdir /mnt/vendor/persist 0775 shell system
-    mkdir /tmp/persist 0775 shell system
-    mount none /tmp/persist /mnt/vendor/persist bind rec
-
-on boot
-    setprop sys.usb.config adb
-
-on property:twrp.modules.loaded=true
-    # Mount firmware
-    mkdir /firmware
-    mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} /firmware ro
-    # Load ADSP firmware for PMIC
-    wait /sys/kernel/boot_adsp/ssr
-    write /sys/kernel/boot_adsp/ssr 1
-    wait /sys/class/power_supply/battery
-    start vendor.health-default
-    umount /vendor
-    symlink /firmware /vendor/firmware_mnt
-
-on property:ro.crypto.state=encrypted && property:ro.boot.dynamic_partitions=true
-    start odm.prepdecrypt
-
-on property:twrp.variant.files_copied=1
-    start odm.vibratorfeature-service
-    start odm.touch_report
-    start odm.weaver-service
-    start odm.keymint-strongbox
-    start odm.se_omapi
-
-on property:servicemanager.ready=true
-    setprop sys.boot_completed 1
-on post-fs-data
-    start vendor.qti.vibrator
-
-service vendor.qti.vibrator /vendor/bin/hw/vendor.qti.hardware.vibrator.service
-#    class hal
-#    user system
-#    group system input
-    setenv RICHTAP_DEVICE_PATH /dev/awinic_haptic
-#    setenv ENV_RICHTAP_CONFIG_PATH /odm/etc/aac_richtap.config
-#    seclabel u:r:recovery:s0
-
-on post-fs
-    write /sys/kernel/fan/fan_enable 1
-    write /sys/kernel/fan/fan_speed_level 1
-    write /sys/class/leds/aw22xxx_led/trigger battery-charging-or-full

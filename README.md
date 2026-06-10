@@ -36,7 +36,7 @@ You are modifying Qualcomm boot-chain security. A wrong partition, wrong model, 
 
 Merged RM11 working notes live in [Project Notes](docs/project-notes/README.md). These are categorized maintainer notes for kernel building, recovery, GSI/ROM work, rooting, KernelSU/SuSFS, module testing, decryption, debloat/deodex, APK tooling, assets, and kernel-lab provenance.
 
-OrangeFox RM10 Pro to RM11 Pro port evidence lives in [OrangeFox Port Notes](docs/orangefox-port/README.md). Raw recovery images, logs, and headers stay local under `/home/richtofen/android/repositories/Main Assets/recovery-forensics` and are summarized in tracked docs.
+OrangeFox RM10 Pro to RM11 Pro port evidence lives in [OrangeFox Port Notes](docs/orangefox-port/README.md). Raw recovery images, logs, and headers stay local under `/home/richtofen/android/repositories/MainAssets/recovery-forensics` and are summarized in tracked docs.
 
 The curated OrangeFox device-tree source snapshot lives in [ports/orangefox-recovery](ports/orangefox-recovery/README.md).
 

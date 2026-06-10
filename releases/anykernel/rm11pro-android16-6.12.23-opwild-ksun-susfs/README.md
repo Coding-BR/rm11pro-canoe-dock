@@ -6,6 +6,12 @@ Package:
 AK3_RM11Pro_Android16_6.12.23_KSUN_SuSFS_v2.1.0_TEST.zip
 ```
 
+Current local filename:
+
+```text
+/mnt/e/Android/RM-11-Pro/KERNELS/BUILDS/AK3_RM11Pro_Android16_6.12.23_KSUN_SuSFS_v2.1.0.zip
+```
+
 Classification:
 
 ```text
@@ -17,6 +23,16 @@ Final ZIP SHA-256:
 ```text
 7CAC8A90FD065FD2F31F8E1938ECE8F5BEA061CBD8213A03E44B86BA50EA1B4A
 ```
+
+Observed package guardrails:
+
+- `do.devicecheck=1`.
+- `do.check_boot_version=1`.
+- `device.name1=NX809J`.
+- `device.name2=NX809J-UN`.
+- target partition is `boot`.
+- `patch_vbmeta_flag=0`.
+- aborts unless runtime kernel minor is exactly `6.12.23`.
 
 Target:
 

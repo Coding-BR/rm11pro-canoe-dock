@@ -45,7 +45,7 @@ Promote only material that has:
 
 Everything else stays local in these project notes or in archived evidence.
 
-OrangeFox recovery has a dedicated evidence folder at [../orangefox-port/README.md](../orangefox-port/README.md). Raw recovery images, logs, and headers stay local under `/home/richtofen/android/repositories/Main Assets/recovery-forensics`.
+OrangeFox recovery has a dedicated evidence folder at [../orangefox-port/README.md](../orangefox-port/README.md). Raw recovery images, logs, and headers stay local under `/home/richtofen/android/repositories/MainAssets/recovery-forensics`.
 
 ## Source Material Used
 
@@ -60,7 +60,7 @@ OrangeFox recovery has a dedicated evidence folder at [../orangefox-port/README.
 ## Current Repository Reality
 
 - `rm11pro-canoe-dock` is the only active top-level repo under `/home/richtofen/android/repositories`.
-- Local-only heavy assets live under `/home/richtofen/android/repositories/Main Assets`.
-- Raw recovery forensics live under `/home/richtofen/android/repositories/Main Assets/recovery-forensics`.
+- Local-only heavy assets live under `/home/richtofen/android/repositories/MainAssets`.
+- Raw recovery forensics live under `/home/richtofen/android/repositories/MainAssets/recovery-forensics`.
 - The broken local kernel checkout was deleted after the useful notes were summarized.
 - Re-clone `https://github.com/Coding-BR/android_kernel_nubia_sm8850_qwjujube` when kernel-source work resumes.

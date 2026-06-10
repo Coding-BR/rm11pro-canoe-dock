@@ -115,7 +115,9 @@ cd ~/OrangeFox_sync
 
 ```bash
 mkdir -p ~/fox_14.1/device/nubia
-git clone https://github.com/Fractal-Echo/rm11pro-orangefox-recovery ~/fox_14.1/device/nubia/NX809J
+git clone https://github.com/Fractal-Echo/rm11pro-canoe-dock ~/rm11pro-canoe-dock
+# Do not use --delete here; the local tree also holds untracked prebuilts and AVB test keys.
+rsync -a ~/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J/ ~/fox_14.1/device/nubia/NX809J/
 ```
 
 ### Build
