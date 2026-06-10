@@ -4,12 +4,6 @@ RM11 Pro / REDMAGIC 11 Pro / NX809J root, GKI kernel, GSI/ROM, recovery, and mod
 
 The dock for RM11 Pro mods: unlock, root, KSU/SUSFS, AnyKernel3, GSI/ROM testing, recovery WIP, and modules.
 
-XDA thread title:
-
-```text
-REDMAGIC 11 Pro / NX809J Canoe Dock: Unlock, Root, KernelSU, AnyKernel3, GSI & Recovery WIP
-```
-
 `canoe` is the RM11 Pro platform reference seen in device evidence. `dock` is where validated release work, rollback notes, hashes, and public guides land. This is not a kernel source archaeology repo, an OrangeFox device-tree repo, or the custom source-kernel lab.
 
 ## Current Status
