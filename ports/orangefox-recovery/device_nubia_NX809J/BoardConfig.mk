@@ -34,9 +34,11 @@ TARGET_NO_BOOTLOADER := true
 TARGET_USES_UEFI := true
 
 # Platform
-TARGET_BOARD_PLATFORM := canoe
+# Coding-BR's NX809J/sm88XX tree uses sm8850 here. Keep PRODUCT_PLATFORM
+# and TARGET_BOOTLOADER_BOARD_NAME on the live canoe product identity.
+TARGET_BOARD_PLATFORM := sm8850
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno840
-QCOM_BOARD_PLATFORMS += canoe
+QCOM_BOARD_PLATFORMS += sm8850
 
 # Kernel
 TARGET_KERNEL_ARCH := arm64

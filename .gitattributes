@@ -1,0 +1,2 @@
+docs/orangefox-port/candidate-diffs/*.diff -whitespace
+scripts/orangefox-sync/patches/*.diff -whitespace

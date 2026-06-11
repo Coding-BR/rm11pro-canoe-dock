@@ -1,0 +1,6 @@
+D1T source diff generated from MainAssets/fox_14.1.
+Build: PASS via mka recoveryimage for TARGET_PRODUCT=orangefox_NX809J_codingbr_d1t.
+Artifact: /home/richtofen/android/repositories/MainAssets/recovery-forensics/d1t-touch-input-isolation/OrangeFox-R12.0-Unofficial-NX809J-d1t-touch-input-isolation.img
+Size: 104857600 bytes.
+SHA256: 9686d9a5415a7e7a67bb623c7e9661e086bf5f356a7902cbd7df0051aab34bbb
+Whitespace check: pending dock git diff --check after note write.

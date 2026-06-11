@@ -1,0 +1,4 @@
+ports/orangefox-recovery/device_nubia_NX809J/BoardConfig.mk
+ports/orangefox-recovery/device_nubia_NX809J/device.mk
+ports/orangefox-recovery/device_nubia_NX809J/recovery/root/init.recovery.qcom.rc
+ports/orangefox-recovery/device_nubia_NX809J/recovery/root/system/bin/unbind_inputs.sh

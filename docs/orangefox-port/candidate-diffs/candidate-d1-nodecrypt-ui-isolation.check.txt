@@ -1,0 +1,9 @@
+D1 source whitespace check: PASS
+Build target: orangefox_NX809J_codingbr_d1 / ap2a / eng
+Build command: mka recoveryimage
+Build result: PASS
+Generated recovery.img size: 104857600 bytes
+Generated OrangeFox-R12.0-Unofficial-NX809J.img size: 104857600 bytes
+Generated image SHA256: 825e5fe8b4398e7b3484fb010855bf5fbdf53eb46e1f50f48976189d6e5beb42
+Header: Android boot image v4, kernel_size 0, ramdisk_size 40060393, os_version 99.87.36, os_patch_level 2099-12
+Runtime intent: no-decrypt UI isolation only; /data decrypt is expected not to work.

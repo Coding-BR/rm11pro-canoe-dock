@@ -1,0 +1,116 @@
+diff --git a/ports/orangefox-recovery/device_nubia_NX809J/BoardConfig.mk b/ports/orangefox-recovery/device_nubia_NX809J/BoardConfig.mk
+index 499c023..eb03bc6 100644
+--- a/ports/orangefox-recovery/device_nubia_NX809J/BoardConfig.mk
++++ b/ports/orangefox-recovery/device_nubia_NX809J/BoardConfig.mk
+@@ -155,6 +155,10 @@ TW_INCLUDE_FASTBOOTD := true
+ # TWRP Configuration
+ TW_THEME := portrait_hdpi
+ TW_FRAMERATE := 120
++TW_SCREEN_W := 1216
++TW_SCREEN_H := 2688
++TARGET_SCREEN_WIDTH := 1216
++TARGET_SCREEN_HEIGHT := 2688
+ RECOVERY_SDCARD_ON_DATA := true
+ TARGET_RECOVERY_QCOM_RTC_FIX := true
+ TW_EXCLUDE_DEFAULT_USB_INIT := true
+@@ -166,10 +170,10 @@ TW_USE_TOOLBOX := true
+ TARGET_USES_MKE2FS := true
+ TW_INCLUDE_FUSE_EXFAT := true
+ TW_INCLUDE_FUSE_NTFS := true
+-TW_INPUT_BLACKLIST := "hbtp_vm:goodix_fp:nubia_tgk_aw_sar0_ch0:nubia_tgk_aw_sar1_ch0:canoe-mtp-wsa884x-snd-card Headset Jack:canoe-mtp-wsa884x-snd-card Button Jack:canoe-mtp-snd-card Headset Jack:canoe-mtp-snd-card Button Jack"
++TW_INPUT_BLACKLIST := "goodix_fp:nubia_tgk_aw_sar0_ch0:nubia_tgk_aw_sar1_ch0:gpio-keys_nubia:canoe-mtp-wsa884x-snd-card Headset Jack:canoe-mtp-wsa884x-snd-card Button Jack"
+ TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
+ TW_MAX_BRIGHTNESS := 8190
+-TW_DEFAULT_BRIGHTNESS := 250
++TW_DEFAULT_BRIGHTNESS := 1500
+ TW_EXTRA_LANGUAGES := true
+ TW_EXCLUDE_APEX := true
+ TW_HAS_EDL_MODE := false
+@@ -177,7 +181,7 @@ TW_SUPPORT_INPUT_AIDL_HAPTICS := true
+ TW_SUPPORT_INPUT_AIDL_HAPTICS_FQNAME := "android.hardware.vibrator.IVibrator/vibratorfeature"
+ TW_SUPPORT_INPUT_AIDL_HAPTICS_FIX_OFF := true
+ TW_USE_SERIALNO_PROPERTY_FOR_DEVICE_ID := true
+-TW_SCREEN_BLANK_ON_BOOT := true
++TW_SCREEN_BLANK_ON_BOOT := false
+ TW_LOAD_VENDOR_MODULES := "drm_display_helper.ko msm_drm.ko msm_ext_display.ko panel_event_notifier.ko zte_tpd.ko aw9620x.ko aw86320.ko haptic_86938.ko zte_fingerprint.ko"
+ TW_LOAD_VENDOR_MODULES_EXCLUDE_GKI := true
+ TW_LOAD_PREBUILT_MODULES_AT_FIRST := true
+diff --git a/ports/orangefox-recovery/device_nubia_NX809J/device.mk b/ports/orangefox-recovery/device_nubia_NX809J/device.mk
+index 360c1ca..17dc44b 100644
+--- a/ports/orangefox-recovery/device_nubia_NX809J/device.mk
++++ b/ports/orangefox-recovery/device_nubia_NX809J/device.mk
+@@ -103,4 +103,5 @@ PRODUCT_COPY_FILES += \
+ # Init scripts
+ PRODUCT_COPY_FILES += \
+     $(DEVICE_PATH)/recovery/root/init.recovery.qcom.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.qcom.rc \
+-    $(DEVICE_PATH)/recovery/root/init.recovery.usb.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.usb.rc
++    $(DEVICE_PATH)/recovery/root/init.recovery.usb.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.usb.rc \
++    $(DEVICE_PATH)/recovery/root/system/bin/unbind_inputs.sh:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/unbind_inputs.sh
+diff --git a/ports/orangefox-recovery/device_nubia_NX809J/recovery/root/init.recovery.qcom.rc b/ports/orangefox-recovery/device_nubia_NX809J/recovery/root/init.recovery.qcom.rc
+index 7b0b4dc..b5e9805 100644
+--- a/ports/orangefox-recovery/device_nubia_NX809J/recovery/root/init.recovery.qcom.rc
++++ b/ports/orangefox-recovery/device_nubia_NX809J/recovery/root/init.recovery.qcom.rc
+@@ -28,6 +28,14 @@
+ # Stock NX809J recovery_a keeps the device hook minimal. Do not start
+ # decryption, vibrator, touchscreen, firmware, fan, or LED vendor services
+ # here until the recovery image reaches UI/ADB.
++# Candidate B: input cleanup is deferred until TWRP reports vendor modules loaded.
++service unbind_inputs /system/bin/sh /system/bin/unbind_inputs.sh
++    user root
++    group root
++    disabled
++    oneshot
++    seclabel u:r:recovery:s0
++
+ on init
+     write /sys/class/backlight/panel0-backlight/brightness 200
+     setprop sys.usb.configfs 1
+@@ -41,3 +49,6 @@ on property:ro.boot.usbcontroller=*
+ on fs
+     wait /dev/block/platform/soc/${ro.boot.bootdevice}
+     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
++
++on property:twrp.modules.loaded=true
++    start unbind_inputs
+diff --git a/ports/orangefox-recovery/device_nubia_NX809J/recovery/root/system/bin/unbind_inputs.sh b/ports/orangefox-recovery/device_nubia_NX809J/recovery/root/system/bin/unbind_inputs.sh
+new file mode 100755
+index 0000000..1c3e24f
+--- /dev/null
++++ b/ports/orangefox-recovery/device_nubia_NX809J/recovery/root/system/bin/unbind_inputs.sh
+@@ -0,0 +1,36 @@
++#!/system/bin/sh
++
++# Give the kernel 2 seconds to fully populate /dev/input after modules are loaded
++sleep 2
++
++deleted=0
++
++for dev in /sys/class/input/input*; do
++    if [ ! -e "$dev/name" ]; then continue; fi
++    name=$(cat "$dev/name")
++
++    if [ "$name" = "goodix_fp" ] || [ "$name" = "nubia_tgk_aw_sar0_ch0" ] || [ "$name" = "nubia_tgk_aw_sar1_ch0" ]; then
++
++        # 1. Unbind the driver from the kernel
++        dev_path=$(readlink -f "$dev/device")
++        if [ -n "$dev_path" ] && [ -e "$dev_path/driver/unbind" ]; then
++            dev_name=${dev_path##*/}
++            echo "$dev_name" > "$dev_path/driver/unbind"
++            deleted=1
++        fi
++
++        # 2. Delete the event node
++        event_name=$(ls "$dev/" | grep event)
++        if [ -n "$event_name" ] && [ -e "/dev/input/$event_name" ]; then
++            rm -f "/dev/input/$event_name"
++            deleted=1
++        fi
++    fi
++done
++
++# Architectural bypass:
++# If we successfully removed the garbage inputs, we kill the recovery process.
++# Android init will instantly respawn it, but this time in a clean environment.
++if [ "$deleted" -eq 1 ]; then
++    killall recovery
++fi

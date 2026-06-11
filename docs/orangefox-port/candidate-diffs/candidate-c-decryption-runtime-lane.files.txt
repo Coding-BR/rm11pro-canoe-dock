@@ -1,0 +1,6 @@
+ports/orangefox-recovery/device_nubia_NX809J/device.mk
+ports/orangefox-recovery/device_nubia_NX809J/recovery.fstab
+ports/orangefox-recovery/device_nubia_NX809J/recovery/root/init.recovery.qcom.rc
+ports/orangefox-recovery/device_nubia_NX809J/recovery/root/system/etc/twrp.flags
+ports/orangefox-recovery/device_nubia_NX809J/recovery/root/vendor/bin/prepdecrypt.sh
+ports/orangefox-recovery/device_nubia_NX809J/recovery/root/vendor/etc/init/prepdecrypt.rc

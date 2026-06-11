@@ -1,0 +1,135 @@
+--- /tmp/rm11-d1t-before/AndroidProducts.mk	2026-06-10 23:23:11.981646665 -0500
++++ device/zte/sm88XX/AndroidProducts.mk	2026-06-11 00:02:49.084778438 -0500
+@@ -11,13 +11,16 @@
+ PRODUCT_MAKEFILES := \
+     $(LOCAL_DIR)/twrp_sm88XX.mk \
+     $(LOCAL_DIR)/orangefox_NX809J_codingbr.mk \
+-    $(LOCAL_DIR)/orangefox_NX809J_codingbr_d1.mk
++    $(LOCAL_DIR)/orangefox_NX809J_codingbr_d1.mk \
++    $(LOCAL_DIR)/orangefox_NX809J_codingbr_d1t.mk
+ 
+ COMMON_LUNCH_CHOICES := \
+     orangefox_NX809J_codingbr-ap2a-eng \
+     orangefox_NX809J_codingbr-ap2a-userdebug \
+     orangefox_NX809J_codingbr_d1-ap2a-eng \
+     orangefox_NX809J_codingbr_d1-ap2a-userdebug \
++    orangefox_NX809J_codingbr_d1t-ap2a-eng \
++    orangefox_NX809J_codingbr_d1t-ap2a-userdebug \
+     twrp_sm88XX-ap2a-eng \
+     twrp_sm88XX-ap2a-userdebug \
+     twrp_sm88XX-eng \
+--- /tmp/rm11-d1t-before/BoardConfig.mk	2026-06-10 23:23:12.001646657 -0500
++++ device/zte/sm88XX/BoardConfig.mk	2026-06-11 00:12:38.080561085 -0500
+@@ -9,11 +9,16 @@
+ #
+ 
+ DEVICE_PATH := device/zte/sm88XX
++RM11_NO_DECRYPT_PRODUCTS := orangefox_NX809J_codingbr_d1 orangefox_NX809J_codingbr_d1t
+ 
+ ifeq ($(TARGET_PRODUCT),orangefox_NX809J_codingbr_d1)
+ TARGET_RECOVERY_DEVICE_DIRS := $(DEVICE_PATH) $(DEVICE_PATH)/d1
+ endif
+ 
++ifeq ($(TARGET_PRODUCT),orangefox_NX809J_codingbr_d1t)
++TARGET_RECOVERY_DEVICE_DIRS := $(DEVICE_PATH) $(DEVICE_PATH)/d1 $(DEVICE_PATH)/d1t
++endif
++
+ # For building with minimal manifest
+ ALLOW_MISSING_DEPENDENCIES := true
+ BUILD_BROKEN_DUP_RULES := true
+@@ -108,7 +113,7 @@
+ 
+ # Crypto
+ BOARD_USES_METADATA_PARTITION := true
+-ifeq ($(TARGET_PRODUCT),orangefox_NX809J_codingbr_d1)
++ifneq ($(filter $(TARGET_PRODUCT),$(RM11_NO_DECRYPT_PRODUCTS)),)
+ BOARD_USES_QCOM_FBE_DECRYPTION :=
+ TW_INCLUDE_CRYPTO :=
+ TW_INCLUDE_CRYPTO_FBE :=
+@@ -157,6 +162,11 @@
+ TARGET_SCREEN_HEIGHT := 2688
+ TW_INPUT_BLACKLIST := "goodix_fp:nubia_tgk_aw_sar0_ch0:nubia_tgk_aw_sar1_ch0:gpio-keys_nubia:canoe-mtp-wsa884x-snd-card Headset Jack:canoe-mtp-wsa884x-snd-card Button Jack"
+ 
++ifeq ($(TARGET_PRODUCT),orangefox_NX809J_codingbr_d1t)
++TW_NO_SCREEN_TIMEOUT := true
++TW_INPUT_BLACKLIST := "hbtp_vm\ngoodix_fp\nnubia_tgk_aw_sar0_ch0\nnubia_tgk_aw_sar1_ch0\ngpio-keys_nubia\ncanoe-mtp-wsa884x-snd-card Headset Jack\ncanoe-mtp-wsa884x-snd-card Button Jack\ncanoe-mtp-snd-card Headset Jack\ncanoe-mtp-snd-card Button Jack"
++endif
++
+ # TWRP file system
+ RECOVERY_SDCARD_ON_DATA := true
+ TARGET_USES_MKE2FS := true
+@@ -187,7 +197,7 @@
+ 
+ 
+ # se_omapi
+-ifneq ($(TARGET_PRODUCT),orangefox_NX809J_codingbr_d1)
++ifeq ($(filter $(TARGET_PRODUCT),$(RM11_NO_DECRYPT_PRODUCTS)),)
+ TW_INCLUDE_OMAPI := true
+ endif
+ 
+--- /dev/null	2026-06-10 23:17:44.149793421 -0500
++++ device/zte/sm88XX/orangefox_NX809J_codingbr_d1t.mk	2026-06-11 00:02:49.100778430 -0500
+@@ -0,0 +1,23 @@
++#
++# Copyright (C) 2026 The OrangeFox Recovery Project
++# SPDX-License-Identifier: GPL-3.0-or-later
++#
++
++DEVICE_PATH := device/zte/sm88XX
++
++# Candidate D1T: D1 no-decrypt base plus touch/input lockscreen isolation.
++$(call inherit-product, $(DEVICE_PATH)/orangefox_NX809J_codingbr_d1.mk)
++
++PRODUCT_NAME := orangefox_NX809J_codingbr_d1t
++PRODUCT_DEVICE := sm88XX
++PRODUCT_BRAND := REDMAGIC
++PRODUCT_MANUFACTURER := nubia
++PRODUCT_MODEL := REDMAGIC 11 Pro
++PRODUCT_SYSTEM_DEVICE := NX809J
++PRODUCT_SYSTEM_NAME := NX809J-UN
++PRODUCT_SYSTEM_BRAND := REDMAGIC
++PRODUCT_SYSTEM_MANUFACTURER := nubia
++PRODUCT_SYSTEM_MODEL := REDMAGIC 11 Pro
++
++PRODUCT_PRODUCT_PROPERTIES += \
++    ro.rm11.touch_candidate=d1t-touch-input-isolation
+--- /dev/null	2026-06-10 23:17:44.149793421 -0500
++++ device/zte/sm88XX/d1t/recovery/root/system/bin/unbind_inputs.sh	2026-06-11 00:02:49.116778424 -0500
+@@ -0,0 +1,37 @@
++#!/system/bin/sh
++
++# Keep the Synaptics touch controller alive and remove only known non-touch
++# sources that can pollute recovery's input device scan.
++sleep 2
++
++deleted=0
++
++for dev in /sys/class/input/input*; do
++    [ -e "$dev/name" ] || continue
++
++    name=$(cat "$dev/name")
++    case "$name" in
++        hbtp_vm|goodix_fp|nubia_tgk_aw_sar0_ch0|nubia_tgk_aw_sar1_ch0)
++            ;;
++        *)
++            continue
++            ;;
++    esac
++
++    dev_path=$(readlink -f "$dev/device")
++    if [ -n "$dev_path" ] && [ -e "$dev_path/driver/unbind" ]; then
++        dev_name=${dev_path##*/}
++        echo "$dev_name" > "$dev_path/driver/unbind"
++        deleted=1
++    fi
++
++    event_name=$(find "$dev" -maxdepth 1 -name 'event*' -printf '%f\n' | head -n 1)
++    if [ -n "$event_name" ] && [ -e "/dev/input/$event_name" ]; then
++        rm -f "/dev/input/$event_name"
++        deleted=1
++    fi
++done
++
++if [ "$deleted" -eq 1 ]; then
++    killall recovery
++fi

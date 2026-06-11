@@ -1,0 +1,13 @@
+device/zte/sm88XX/AndroidProducts.mk
+device/zte/sm88XX/BoardConfig.mk
+device/zte/sm88XX/orangefox_NX809J_codingbr_d1.mk
+device/zte/sm88XX/d1/recovery/root/init.recovery.qcom.rc
+device/zte/sm88XX/d1/recovery/root/system/etc/init/keystore2.rc
+device/zte/sm88XX/d1/recovery/root/system/etc/init/se_omapi.rc
+device/zte/sm88XX/d1/recovery/root/vendor/etc/init/android.hardware.gatekeeper-service-qti.rc
+device/zte/sm88XX/d1/recovery/root/vendor/etc/init/android.hardware.health-service.qti.rc
+device/zte/sm88XX/d1/recovery/root/vendor/etc/init/android.hardware.secure_element.rc
+device/zte/sm88XX/d1/recovery/root/vendor/etc/init/android.hardware.security.keymint-service-qti.rc
+device/zte/sm88XX/d1/recovery/root/vendor/etc/init/android.hardware.security.onekeymint-service-qti.rc
+device/zte/sm88XX/d1/recovery/root/vendor/etc/init/android.hardware.weaver-service.qti.rc
+device/zte/sm88XX/d1/recovery/root/vendor/etc/init/qseecomd.rc

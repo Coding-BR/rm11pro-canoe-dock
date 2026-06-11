@@ -1,0 +1,5 @@
+git diff --check -- minuitwrp/events.cpp: pass
+mka recoveryimage: pass after the known Fox twres copy/rerun workaround
+recovery.img size: 104857600 bytes
+OrangeFox image size: 104857600 bytes
+sha256: 7c9bbc9f2e5f3253ebdaa0ea9dfe29bf4f13fc7035d38ac4912dd9b8643617c0

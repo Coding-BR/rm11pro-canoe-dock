@@ -1,0 +1,4 @@
+device/zte/sm88XX/AndroidProducts.mk
+device/zte/sm88XX/BoardConfig.mk
+device/zte/sm88XX/orangefox_NX809J_codingbr_d1t.mk
+device/zte/sm88XX/d1t/recovery/root/system/bin/unbind_inputs.sh

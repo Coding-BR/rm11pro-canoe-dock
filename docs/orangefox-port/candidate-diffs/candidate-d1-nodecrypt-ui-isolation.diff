@@ -1,0 +1,263 @@
+--- /tmp/rm11-d1-before/AndroidProducts.mk	2026-06-10 23:22:13.721663952 -0500
++++ device/zte/sm88XX/AndroidProducts.mk	2026-06-10 23:23:11.981646665 -0500
+@@ -10,11 +10,14 @@
+ 
+ PRODUCT_MAKEFILES := \
+     $(LOCAL_DIR)/twrp_sm88XX.mk \
+-    $(LOCAL_DIR)/orangefox_NX809J_codingbr.mk
++    $(LOCAL_DIR)/orangefox_NX809J_codingbr.mk \
++    $(LOCAL_DIR)/orangefox_NX809J_codingbr_d1.mk
+ 
+ COMMON_LUNCH_CHOICES := \
+     orangefox_NX809J_codingbr-ap2a-eng \
+     orangefox_NX809J_codingbr-ap2a-userdebug \
++    orangefox_NX809J_codingbr_d1-ap2a-eng \
++    orangefox_NX809J_codingbr_d1-ap2a-userdebug \
+     twrp_sm88XX-ap2a-eng \
+     twrp_sm88XX-ap2a-userdebug \
+     twrp_sm88XX-eng \
+--- /tmp/rm11-d1-before/BoardConfig.mk	2026-06-10 23:22:13.725663951 -0500
++++ device/zte/sm88XX/BoardConfig.mk	2026-06-10 23:23:12.001646657 -0500
+@@ -10,6 +10,10 @@
+ 
+ DEVICE_PATH := device/zte/sm88XX
+ 
++ifeq ($(TARGET_PRODUCT),orangefox_NX809J_codingbr_d1)
++TARGET_RECOVERY_DEVICE_DIRS := $(DEVICE_PATH) $(DEVICE_PATH)/d1
++endif
++
+ # For building with minimal manifest
+ ALLOW_MISSING_DEPENDENCIES := true
+ BUILD_BROKEN_DUP_RULES := true
+@@ -104,11 +108,19 @@
+ 
+ # Crypto
+ BOARD_USES_METADATA_PARTITION := true
++ifeq ($(TARGET_PRODUCT),orangefox_NX809J_codingbr_d1)
++BOARD_USES_QCOM_FBE_DECRYPTION :=
++TW_INCLUDE_CRYPTO :=
++TW_INCLUDE_CRYPTO_FBE :=
++TW_INCLUDE_FBE_METADATA_DECRYPT :=
++TW_USE_FSCRYPT_POLICY :=
++else
+ BOARD_USES_QCOM_FBE_DECRYPTION := true
+ TW_INCLUDE_CRYPTO := true
+ TW_INCLUDE_CRYPTO_FBE := true
+ TW_INCLUDE_FBE_METADATA_DECRYPT := true
+ TW_USE_FSCRYPT_POLICY := 2
++endif
+ 
+ # Recovery
+ BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
+@@ -175,7 +187,9 @@
+ 
+ 
+ # se_omapi
++ifneq ($(TARGET_PRODUCT),orangefox_NX809J_codingbr_d1)
+ TW_INCLUDE_OMAPI := true
++endif
+ 
+ # COPY
+ TARGET_COPY_OUT_VENDOR := vendor
+--- /dev/null	2026-06-10 23:17:44.149793421 -0500
++++ device/zte/sm88XX/orangefox_NX809J_codingbr_d1.mk	2026-06-10 23:23:12.009646655 -0500
+@@ -0,0 +1,27 @@
++#
++# Copyright (C) 2026 The OrangeFox Recovery Project
++# SPDX-License-Identifier: GPL-3.0-or-later
++#
++
++DEVICE_PATH := device/zte/sm88XX
++
++# Candidate D1: no-decrypt UI isolation.
++#
++# This product keeps the bootable Coding-BR sm88XX/NX809J lane intact and adds a
++# separate lunch target that suppresses the Android 16 decrypt/security runtime
++# while testing whether OrangeFox can advance past splash into full UI.
++$(call inherit-product, $(DEVICE_PATH)/orangefox_NX809J_codingbr.mk)
++
++PRODUCT_NAME := orangefox_NX809J_codingbr_d1
++PRODUCT_DEVICE := sm88XX
++PRODUCT_BRAND := REDMAGIC
++PRODUCT_MANUFACTURER := nubia
++PRODUCT_MODEL := REDMAGIC 11 Pro
++PRODUCT_SYSTEM_DEVICE := NX809J
++PRODUCT_SYSTEM_NAME := NX809J-UN
++PRODUCT_SYSTEM_BRAND := REDMAGIC
++PRODUCT_SYSTEM_MANUFACTURER := nubia
++PRODUCT_SYSTEM_MODEL := REDMAGIC 11 Pro
++
++PRODUCT_PRODUCT_PROPERTIES += \
++    ro.rm11.candidate=d1-nodecrypt-ui-isolation
+--- /dev/null	2026-06-10 23:17:44.149793421 -0500
++++ device/zte/sm88XX/d1/recovery/root/init.recovery.qcom.rc	2026-06-10 23:23:12.029646649 -0500
+@@ -0,0 +1,56 @@
++# Copyright (c) 2017-2018,2020-2021 The Linux Foundation. All rights reserved.
++#
++# Candidate D1 overlay for NX809J: keep display/touch/module bring-up, but do
++# not start the Android 16 decrypt/security service stack during UI isolation.
++
++on init
++    write /sys/fs/selinux/checkreqprot 0
++
++service post-boot-script /system/bin/sh -c /vendor/bin/init.kernel.post_boot-canoe_default_6_2.sh
++    user root
++    group root
++    oneshot
++    seclabel u:r:recovery:s0
++
++service unbind_inputs /system/bin/sh /system/bin/unbind_inputs.sh
++    user root
++    group root
++    oneshot
++    seclabel u:r:recovery:s0
++
++on init
++    write /sys/class/backlight/panel0-backlight/brightness 200
++    setprop sys.usb.configfs 1
++
++on property:ro.boot.usbcontroller=*
++    setprop sys.usb.controller ${ro.boot.usbcontroller}
++    wait /sys/bus/platform/devices/${ro.boot.usb.dwc3_msm:-a600000.ssusb}/mode
++    write /sys/bus/platform/devices/${ro.boot.usb.dwc3_msm:-a600000.ssusb}/mode peripheral
++    wait /sys/class/udc/${ro.boot.usbcontroller} 1
++
++on fs
++    wait /dev/block/platform/soc/${ro.boot.bootdevice}
++    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
++    write /proc/sys/kernel/firmware_config/force_sysfs_fallback 1
++
++on property:twrp.modules.loaded=true
++    mkdir /firmware
++    mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} /firmware ro
++    wait /sys/kernel/boot_adsp/ssr
++    write /sys/kernel/boot_adsp/ssr 1
++    wait /sys/class/power_supply/battery
++    start unbind_inputs
++
++on property:hwservicemanager.ready=true
++    setprop sys.boot_completed 1
++
++# Touch drivers
++chmod 0644 /firmware/syna_firmware.img
++
++on boot
++    chown root root /lib/firmware
++    chmod 0755 /lib/firmware
++
++    chmod 0644 /lib/firmware/syna_firmware.img
++    chmod 0644 /lib/firmware/haptic_ram.bin
++    chmod 0644 /lib/firmware/awinic_haptic_params.bin
+--- /dev/null	2026-06-10 23:17:44.149793421 -0500
++++ device/zte/sm88XX/d1/recovery/root/system/etc/init/keystore2.rc	2026-06-10 23:23:12.049646642 -0500
+@@ -0,0 +1,9 @@
++# Candidate D1: do not auto-start keystore2 during no-decrypt UI isolation.
++
++service keystore2 /system/bin/keystore2 /tmp/misc/keystore
++    class early_hal
++    user root
++    group keystore readproc log
++    writepid /dev/cpuset/foreground/tasks
++    disabled
++    seclabel u:r:recovery:s0
+--- /dev/null	2026-06-10 23:17:44.149793421 -0500
++++ device/zte/sm88XX/d1/recovery/root/system/etc/init/se_omapi.rc	2026-06-10 23:23:12.053646641 -0500
+@@ -0,0 +1,8 @@
++# Candidate D1: keep secure element helper present but disabled.
++
++service se_omapi /system/bin/se_omapi
++    class early_hal
++    user root
++    group root
++    disabled
++    seclabel u:r:recovery:s0
+--- /dev/null	2026-06-10 23:17:44.149793421 -0500
++++ device/zte/sm88XX/d1/recovery/root/vendor/etc/init/android.hardware.gatekeeper-service-qti.rc	2026-06-10 23:23:12.073646635 -0500
+@@ -0,0 +1,8 @@
++# Candidate D1: gatekeeper is disabled for no-decrypt UI isolation.
++
++service vendor.gatekeeper_default /vendor/bin/hw/android.hardware.gatekeeper-service-spu-qti
++    class early_hal
++    user root
++    group root
++    disabled
++    seclabel u:r:recovery:s0
+--- /dev/null	2026-06-10 23:17:44.149793421 -0500
++++ device/zte/sm88XX/d1/recovery/root/vendor/etc/init/android.hardware.health-service.qti.rc	2026-06-10 23:23:12.077646633 -0500
+@@ -0,0 +1,20 @@
++# Candidate D1: vendor health service is disabled to avoid Android 16 vendor
++# linker/runtime restart loops while proving the recovery UI path.
++
++service vendor.health-default /vendor/bin/hw/android.hardware.health-service.qti
++    class hal
++    user system
++    group system
++    capabilities WAKE_ALARM BLOCK_SUSPEND
++    file /dev/kmsg w
++    disabled
++    seclabel u:r:recovery:s0
++
++service vendor.charger /vendor/bin/hw/android.hardware.health-service.qti --charger
++    class charger
++    user system
++    group system wakelock input graphics
++    capabilities SYS_BOOT WAKE_ALARM BLOCK_SUSPEND
++    file /dev/kmsg w
++    disabled
++    seclabel u:r:charger_vendor:s0
+--- /dev/null	2026-06-10 23:17:44.149793421 -0500
++++ device/zte/sm88XX/d1/recovery/root/vendor/etc/init/android.hardware.secure_element.rc	2026-06-10 23:23:12.081646632 -0500
+@@ -0,0 +1,8 @@
++# Candidate D1: secure element is disabled for no-decrypt UI isolation.
++
++service gto_secure_element_aidl_service /vendor/bin/hw/android.hardware.secure_element-service-aidl
++    class hal
++    user root
++    group nfc root
++    disabled
++    seclabel u:r:recovery:s0
+--- /dev/null	2026-06-10 23:17:44.149793421 -0500
++++ device/zte/sm88XX/d1/recovery/root/vendor/etc/init/android.hardware.security.keymint-service-qti.rc	2026-06-10 23:23:12.089646630 -0500
+@@ -0,0 +1,8 @@
++# Candidate D1: keymint-qti is disabled for no-decrypt UI isolation.
++
++service vendor.keymint-qti /vendor/bin/hw/android.hardware.security.keymint-service-spu-qti
++    class early_hal
++    user root
++    group root drmrpc
++    disabled
++    seclabel u:r:recovery:s0
+--- /dev/null	2026-06-10 23:17:44.149793421 -0500
++++ device/zte/sm88XX/d1/recovery/root/vendor/etc/init/android.hardware.security.onekeymint-service-qti.rc	2026-06-10 23:23:12.093646628 -0500
+@@ -0,0 +1,8 @@
++# Candidate D1: onekeymint is disabled for no-decrypt UI isolation.
++
++service vendor.keymint /vendor/bin/hw/android.hardware.security.onekeymint-service-qti
++    class early_hal
++    user system
++    group system drmrpc
++    disabled
++    seclabel u:r:recovery:s0
+--- /dev/null	2026-06-10 23:17:44.149793421 -0500
++++ device/zte/sm88XX/d1/recovery/root/vendor/etc/init/android.hardware.weaver-service.qti.rc	2026-06-10 23:23:12.097646627 -0500
+@@ -0,0 +1,8 @@
++# Candidate D1: weaver is disabled for no-decrypt UI isolation.
++
++service vendor.weaver-service /vendor/bin/hw/android.hardware.weaver-service-spu-qti
++    class hal
++    user root
++    group nfc root
++    disabled
++    seclabel u:r:recovery:s0
+--- /dev/null	2026-06-10 23:17:44.149793421 -0500
++++ device/zte/sm88XX/d1/recovery/root/vendor/etc/init/qseecomd.rc	2026-06-10 23:23:12.105646625 -0500
+@@ -0,0 +1,9 @@
++# Candidate D1: qseecomd is disabled for no-decrypt UI isolation.
++
++service vendor.qseecomd /vendor/bin/qseecomd
++    socket notify-topology stream 660 system drmrpc
++    class core
++    user root
++    group root drmrpc
++    disabled
++    seclabel u:r:recovery:s0
