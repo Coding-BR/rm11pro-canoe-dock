@@ -53,7 +53,7 @@ Source changes:
 Exact patch:
 
 - `docs/orangefox-port/candidate-diffs/candidate-d1t3-minuitwrp-touch-normalization.diff`
-- `scripts/orangefox-sync/patches/patch-minuitwrp-nx809j-touch-fox_14.1.diff`
+- `recovery/patches/fox_14.1/patch-minuitwrp-nx809j-touch-fox_14.1.diff`
 
 Touched files in the local Fox source:
 

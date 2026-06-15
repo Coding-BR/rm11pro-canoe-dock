@@ -97,7 +97,7 @@ https://github.com/Coding-BR/android_kernel_nubia_sm8850_qwjujube
 ### rm11pro-orangefox-recovery archived source
 
 ```text
-/home/richtofen/.android/repositories/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J
+/home/richtofen/.android/repositories/rm11pro-canoe-dock/recovery/device/zte/sm88XX
 ```
 
 Purpose:

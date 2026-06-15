@@ -4,11 +4,12 @@ This folder tracks the RM10 Pro OrangeFox recovery port work that was adapted fo
 
 Source roles:
 
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J`: current local fork path for the RM10 Pro to RM11 Pro OrangeFox device-tree port.
-- `/home/richtofen/.android/repositories/MainAssets/OrangeFox_sync`: small OrangeFox sync helper and fox_14.1 patch set copied into `scripts/orangefox-sync`.
+- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/recovery/device/zte/sm88XX`: current local fork path for the RM10 Pro to RM11 Pro OrangeFox device-tree port.
+- `/home/richtofen/.android/repositories/MainAssets/OrangeFox_sync`: small OrangeFox sync helper copied into `scripts/orangefox-sync`, with dock-owned fox_14.1 patches under `recovery/patches/fox_14.1`.
 - `/home/richtofen/.android/repositories/MainAssets/fox_14.1`: full OrangeFox/TWRP source tree. Generated `out/` artifacts were deleted during cleanup and must be rebuilt when needed. This is not copied into Git.
 - `/home/richtofen/.android/repositories/MainAssets/recovery-forensics`: local raw recovery images, logs, headers, and AVB comparisons. Raw payloads stay local; summary docs live here.
-- `ports/orangefox-recovery/`: curated dock snapshot of the RM11 OrangeFox device-tree source/config/docs from the current fork.
+- `recovery/`: curated dock snapshot of the RM11 OrangeFox device-tree source/config/docs from the current fork.
+- `scripts/local-build/`: local-only OrangeFox build lane for fork owners and private workstations.
 
 Current status:
 
@@ -96,7 +97,8 @@ Key files:
 - `codingbr-sm88xx-fox14-boot-adb-log-analysis-2026-06-10.md`: log-backed diagnosis for the splash/ADB test and the Candidate D plan.
 - `d1t-touch-input-isolation-build-2026-06-11.md`: D1T build and touch-range test plan.
 - `d1t3-minuitwrp-touch-normalization-pass-2026-06-11.md`: D1T/D1T2 failure summary, D1T3 source patch, build metadata, and basic UI/touch pass result.
-- `d2e-d2f-d2g-decrypt-candidates-2026-06-14.md`: D2E/D2F results and D2G preflash marker proof.
+- `../archive/recovery-d2e-d2f-d2g-decrypt-candidates-2026-06-14.md`: archived D2E/D2F results and D2G preflash marker proof.
+- `17-local-orangefox-build-lane.md`: local build lane, public CI boundary, and D2N reproducibility map.
 - `d2n-recovery-baseline-2026-06-15.md`: D2N frozen artifact hashes,
   verifier scope, live decrypt/UI evidence, rollback paths, and remaining test
   gaps.

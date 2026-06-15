@@ -55,7 +55,7 @@ OrangeFox recovery has a dedicated evidence folder at [../orangefox-port/README.
 - `/mnt/e/Android/RM-11-Pro/staging-notes`.
 - `/mnt/e/Android/RM-11-Pro/BOOT`, `RECOVERY`, `KERNELS`, `MODULES`, and `Tools`.
 - `/home/richtofen/.android/repositories/rm11pro-canoe-dock`.
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J`.
+- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/recovery/device/zte/sm88XX`.
 - Former local kernel checkout `rm11-recovery-next-from-myfork-main`, reviewed before cleanup and then deleted.
 - Upstream kernel source lineage: `https://github.com/Coding-BR/android_kernel_nubia_sm8850_qwjujube`.
 

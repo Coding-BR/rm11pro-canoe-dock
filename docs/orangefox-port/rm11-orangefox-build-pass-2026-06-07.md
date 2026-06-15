@@ -16,7 +16,7 @@ OrangeFox source:
 
 Active device tree:
 
-`/home/richtofen/.android/repositories/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J`
+`/home/richtofen/.android/repositories/rm11pro-canoe-dock/recovery/device/zte/sm88XX`
 
 Build copy used by Android build system:
 

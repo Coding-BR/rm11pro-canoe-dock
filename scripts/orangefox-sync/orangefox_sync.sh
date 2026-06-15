@@ -39,6 +39,9 @@ FOX_BASE_VERSION="R12.0";
 
 # Our starting point (Fox base dir)
 BASE_DIR="$PWD";
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)";
+REPO_ROOT="$(CDPATH= cd -- "$SCRIPT_DIR/../.." && pwd)";
+PATCH_DIR="${PATCH_DIR:-$REPO_ROOT/recovery/patches/fox_14.1}";
 
 # default directory for the new manifest
 MANIFEST_DIR="";
@@ -174,11 +177,11 @@ update_environment() {
   [ -z "$USE_SSH" ] && USE_SSH="0";
 
   # the "diff" file(s) that will be used to patch the original manifest
-  PATCH_FILE="$BASE_DIR/patches/patch-manifest-$FOX_DEF_BRANCH.diff";
-  PATCH_VOLD="$BASE_DIR/patches/patch-vold-$FOX_DEF_BRANCH.diff";
-  PATCH_REMOVE_MINIMAL="$BASE_DIR/patches/patch-remove-minimal-$FOX_DEF_BRANCH.diff";
-  PATCH_UPDATE_ENGINE="$BASE_DIR/patches/patch-update-engine-$FOX_DEF_BRANCH.diff";
-  PATCH_VENDOR_TWRP="$BASE_DIR/patch-vendor-twrp-$FOX_DEF_BRANCH.diff";
+  PATCH_FILE="$PATCH_DIR/patch-manifest-$FOX_DEF_BRANCH.diff";
+  PATCH_VOLD="$PATCH_DIR/patch-vold-$FOX_DEF_BRANCH.diff";
+  PATCH_REMOVE_MINIMAL="$PATCH_DIR/patch-remove-minimal-$FOX_DEF_BRANCH.diff";
+  PATCH_UPDATE_ENGINE="$PATCH_DIR/patch-update-engine-$FOX_DEF_BRANCH.diff";
+  PATCH_VENDOR_TWRP="$PATCH_DIR/patch-vendor-twrp-$FOX_DEF_BRANCH.diff";
 
   # the directory in which the patch of the manifest will be executed
   MANIFEST_BUILD_DIR="$MANIFEST_DIR/build";

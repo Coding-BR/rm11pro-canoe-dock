@@ -84,4 +84,4 @@ Repo note:
 - `/mnt/e/Android/RM-11-Pro/staging-notes/X1_FUTURE_ROM_RECOVERY_RUNWAY.md`
 - `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/13-custom-recovery-wip.md`
 - `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/14-orangefox-wip.md`
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J/docs/`
+- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/recovery/device/zte/sm88XX/docs/`

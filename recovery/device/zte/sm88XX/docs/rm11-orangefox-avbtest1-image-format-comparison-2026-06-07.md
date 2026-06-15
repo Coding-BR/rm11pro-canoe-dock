@@ -27,7 +27,7 @@ build-pass / flash-pass-old / boot-fail-old / rollback-pass / avb-signed rebuild
 Device tree:
 
 ```text
-/home/richtofen/.android/repositories/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J
+/home/richtofen/.android/repositories/rm11pro-canoe-dock/recovery/device/zte/sm88XX
 ```
 
 Synced build tree copy:

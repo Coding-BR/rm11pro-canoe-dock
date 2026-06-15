@@ -4,9 +4,9 @@ This directory is a curated copy of the RM11 Pro / NX809J OrangeFox device-tree 
 
 Source:
 
-- Local repo: `/home/richtofen/.android/repositories/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J`
+- Local repo: `/home/richtofen/.android/repositories/rm11pro-canoe-dock/recovery/device/zte/sm88XX`
 - Active remote: `https://github.com/Fractal-Echo/rm11pro-canoe-dock`
-- Active subdir: `ports/orangefox-recovery/device_nubia_NX809J`
+- Active subdir: `recovery/device/zte/sm88XX`
 - Former standalone remote at import: `https://github.com/Fractal-Echo/rm11pro-orangefox-recovery`
 - Former branch at import: `codex/nx809j-rm11pro-port`
 - Former branch head at import: `023c9d6a5a2504bd3bf4eb7b656244d78ce68d0c`

@@ -33,7 +33,7 @@ Local reference clone:
 Compared against:
 
 ```text
-/home/richtofen/.android/repositories/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J
+/home/richtofen/.android/repositories/rm11pro-canoe-dock/recovery/device/zte/sm88XX
 ```
 
 No build, flash, or device write was performed for this comparison.

@@ -24,5 +24,5 @@ part of the generic OrangeFox sync patch set.
 Apply it from the Fox source root with:
 
 ```bash
-git -C bootable/recovery apply /home/richtofen/.android/repositories/rm11pro-canoe-dock/scripts/orangefox-sync/patches/patch-minuitwrp-nx809j-touch-fox_14.1.diff
+git -C bootable/recovery apply /home/richtofen/.android/repositories/rm11pro-canoe-dock/recovery/patches/fox_14.1/patch-minuitwrp-nx809j-touch-fox_14.1.diff
 ```

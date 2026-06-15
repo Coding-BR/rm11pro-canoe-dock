@@ -11,7 +11,7 @@ Source fork:
 
 Imported snapshot:
 
-- `device_nubia_NX809J/`
+- `device/zte/sm88XX/`
 
 This is a source/config/docs import, not a full proprietary blob mirror. The active local fork had uncommitted RM11 port changes and untracked RM11 docs/prebuilt manifests, so the dock import used the local working tree instead of only the remote GitHub commit.
 
@@ -20,9 +20,11 @@ Included:
 - Android product, board, device, and OrangeFox makefiles.
 - Recovery fstab and init/service XML/RC configuration.
 - WiFi, touch, VINTF, ueventd, task profile, and TWRP flag text configs.
-- GitHub workflow files as inert source references under this subfolder.
+- GitHub workflow files as inert source references under this subfolder. Only root
+  `.github/workflows/` files are active Actions.
 - RM11 OrangeFox build/flash/forensics docs.
-- Android 16 prebuilt README and SHA256 manifest.
+- Android 16 prebuilt README and SHA256 manifest, now indexed under
+  `prebuilts/` and `manifests/`.
 
 Excluded:
 
@@ -33,5 +35,6 @@ Excluded:
 
 For the forensic narrative and current validation status, start at:
 
-- `../../docs/orangefox-port/README.md`
-- `../../docs/14-orangefox-wip.md`
+- `../docs/orangefox-port/README.md`
+- `../docs/orangefox-port/d2n-recovery-baseline-2026-06-15.md`
+- `../docs/orangefox-port/17-local-orangefox-build-lane.md`

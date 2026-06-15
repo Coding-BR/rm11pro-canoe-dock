@@ -1,5 +1,9 @@
 # Sync a twrp minimal manifest, patch it for building OrangeFox, and sync the OrangeFox sources
 
+Dock note: the RM11 Pro patch payloads live in `recovery/patches/fox_14.1`.
+This helper is local-only. Public GitHub Actions must not run full syncs or
+full OrangeFox builds.
+
 ## To fetch the manifest for the first time, follow these steps: ##
 ------------------------------------
 
