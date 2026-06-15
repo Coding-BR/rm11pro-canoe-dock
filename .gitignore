@@ -27,6 +27,10 @@ private/
 backups/
 payloads/
 artifacts/
+canoe-dock-setup-files/
+
+# Windows download sidecars copied through WSL/UNC paths.
+*:Zone.Identifier
 
 # Local OrangeFox forensic payloads. Keep summaries in docs/orangefox-port.
 recovery-forensics/**

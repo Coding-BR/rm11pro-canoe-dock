@@ -2,7 +2,16 @@
 
 ## Status
 
-Recovery decryption is not proven for RM11 OrangeFox yet because OrangeFox itself is not boot-proven.
+Recovery decryption is not proven for RM11 OrangeFox yet.
+
+Current recovery lane:
+
+- D1T3 proved basic OrangeFox UI/touch navigation in the no-decrypt lane.
+- D2E booted with recovery ADB but crypto was disabled
+  (`ro.orangefox.crypto_enabled=0`).
+- D2F enabled crypto, reached OrangeFox animation, exposed recovery ADB, and
+  stalled before menu with decrypt/security service restart loops.
+- D2G has passed preflash marker proof only. It has not been flashed.
 
 Kernel boot-hang notes are still highly relevant because they explain the Android 16 `/data` decryption chain.
 
@@ -46,6 +55,16 @@ When recovery UI boots, test in this order:
 6. `/data` mount read-only first if possible.
 7. Reboot to system.
 8. Rollback recovery image.
+
+Before any D2G flash, run:
+
+```bash
+/home/richtofen/.android/repositories/rm11pro-canoe-dock/scripts/recovery/verify-d2g-preflash.sh
+```
+
+The script must prove image size, frozen SHA-256, D2G AVB fingerprint, D2G
+default-property marker, all manual `sys.rm11.d2g.*` triggers, and the
+crypto-enabled compile-lane expectation.
 
 ## Do Not Mix These
 

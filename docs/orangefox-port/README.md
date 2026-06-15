@@ -13,7 +13,7 @@ Source roles:
 Current status:
 
 ```text
-build-pass / recovery_a-dd-test-fail / rollback-pass / stockfstab-mininit-candidate-built / codingbr-sm88xx-nx809j-splash-adb-pass-ui-blocked / rollback-pass / d1-nodecrypt-ui-adb-pass / d1t-d1t2-touch-fail / d1t3-basic-ui-touch-navigation-pass
+build-pass / recovery_a-dd-test-fail / rollback-pass / stockfstab-mininit-candidate-built / codingbr-sm88xx-nx809j-splash-adb-pass-ui-blocked / rollback-pass / d1-nodecrypt-ui-adb-pass / d1t-d1t2-touch-fail / d1t3-basic-ui-touch-navigation-pass / d2e-boot-adb-pass-crypto-disabled / d2f-crypto-enabled-animation-stall / d2g-preflash-marker-proof-pass-not-flashed
 ```
 
 High-confidence facts:
@@ -48,6 +48,17 @@ High-confidence facts:
   and Wipe views. Treat this as a basic UI/touch navigation pass only.
 - D1T3 still does not prove decrypt, MTP, fastbootd, partition operations,
   backups, wipes, installs, USB OTG, or reboot-menu behavior.
+- D2E booted with recovery ADB, but crypto was disabled
+  (`ro.orangefox.crypto_enabled=0`) and service-start probing did not solve
+  decrypt.
+- D2F enabled crypto and reached the OrangeFox animation with recovery ADB, but
+  did not reach the menu. Logs pointed at decrypt/security service restart
+  loops.
+- D2G is a preflash-only candidate. Its frozen artifact is exactly
+  `104857600` bytes with SHA-256
+  `a806ffcc82eeec0ffd29d2c07f5f8e6c9a8669fce783ce3901e4f6711baa9664`.
+  The built recovery root now proves the D2G marker and all manual
+  `sys.rm11.d2g.*` triggers landed.
 
 Safety rules:
 
@@ -58,6 +69,9 @@ Safety rules:
 - Treat the stock-fstab/minimal-init build as the next candidate only after the expected rollback path is confirmed.
 - Keep D1T3 in the no-decrypt lane until the Android 16 keymint/gatekeeper/qsee
   runtime issue is handled separately.
+- Do not flash D2G until `scripts/recovery/verify-d2g-preflash.sh` passes
+  against the frozen local artifact and the intended one-slot test plan is
+  explicit.
 
 Key files:
 
@@ -72,6 +86,7 @@ Key files:
 - `codingbr-sm88xx-fox14-boot-adb-log-analysis-2026-06-10.md`: log-backed diagnosis for the splash/ADB test and the Candidate D plan.
 - `d1t-touch-input-isolation-build-2026-06-11.md`: D1T build and touch-range test plan.
 - `d1t3-minuitwrp-touch-normalization-pass-2026-06-11.md`: D1T/D1T2 failure summary, D1T3 source patch, build metadata, and basic UI/touch pass result.
+- `d2e-d2f-d2g-decrypt-candidates-2026-06-14.md`: D2E/D2F results and D2G preflash marker proof.
 - `rm11-live-adb-baseline.md`: live Android 16 ADB baseline before recovery validation.
 - `rm11-post-ksun-adb-sanity.md`: post-KernelSU Android state.
 - `orangefox-sync-map.md`: local fox_14.1 and OrangeFox_sync map.

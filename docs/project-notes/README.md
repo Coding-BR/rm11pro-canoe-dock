@@ -29,6 +29,7 @@ SHA256: 23315e6f107b32ccb370b0f8d3dd0390c677d563b9f212693415e6a8a7c62489
 | Local assets and repo map | [11-assets-and-repo-map.md](11-assets-and-repo-map.md) |
 | Next actions | [12-next-actions.md](12-next-actions.md) |
 | Kernel lab provenance | [13-kernel-lab-provenance.md](13-kernel-lab-provenance.md) |
+| Starred repo sync / build map | [14-starred-repo-sync-and-build-map.md](14-starred-repo-sync-and-build-map.md) |
 
 ## Canoe Dock Merge Rule
 

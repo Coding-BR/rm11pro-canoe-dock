@@ -3,7 +3,7 @@
 Current OrangeFox result:
 
 ```text
-build-pass / recovery_a-dd-test-fail / rollback-pass / stockfstab-mininit-candidate-built
+build-pass / d1t3-basic-ui-touch-navigation-pass / d2e-boot-adb-pass-crypto-disabled / d2f-crypto-enabled-animation-stall / d2g-preflash-marker-proof-pass-not-flashed
 ```
 
 Known facts:
@@ -13,6 +13,12 @@ Known facts:
 - The 2026-06-09 `recovery_a` dd test reached the RedMagic logo and did not reach recovery UI or recovery ADB.
 - Stock `recovery_a` rollback passed after Android boot was recovered.
 - Android boot was restored.
+- D1T3 reached basic OrangeFox UI/touch navigation with recovery ADB in the
+  no-decrypt lane.
+- D2E booted with recovery ADB but reported `ro.orangefox.crypto_enabled=0`.
+- D2F enabled crypto, reached OrangeFox animation, exposed recovery ADB, and
+  stalled before menu with decrypt/security service restart loops.
+- D2G is not flashed. Current work is preflash proof only.
 
 Forensic finding:
 
@@ -26,10 +32,20 @@ Forensic finding:
 Current local test candidate:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/fox_14.1/out/target/product/NX809J/OrangeFox-R12.0-Unofficial-NX809J.img
-sha256: 9a3d822bbe8201321934a3e746b6c2efc6ef4c037939a858e94487fd866e2d4d
+/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d2g-crypto-enabled-manual-service-overlay/OrangeFox-R12.0-Unofficial-NX809J-d2g-crypto-enabled-manual-service-overlay.img
+sha256: a806ffcc82eeec0ffd29d2c07f5f8e6c9a8669fce783ce3901e4f6711baa9664
 size: 104857600 bytes
 ```
+
+D2G preflash proof:
+
+- AVB fingerprint contains `orangefox_NX809J_codingbr_d2g`.
+- Built recovery root contains
+  `ro.rm11.decrypt_candidate_d2g=d2g-crypto-enabled-manual-service-overlay`
+  in `default.prop` and `prop.default`.
+- Built recovery root contains every `sys.rm11.d2g.*` manual trigger.
+- `ro.orangefox.crypto_enabled` is a runtime property from the
+  `TW_INCLUDE_CRYPTO` compile lane, not a static default property.
 
 Current warning:
 
@@ -38,6 +54,8 @@ Current warning:
 - Keep stock `recovery_a` rollback available before any recovery test.
 - Test only one recovery slot first.
 - Keep recovery WIP until UI, touch, ADB, mount/decryption behavior, and reboot-to-system pass.
+- Run `scripts/recovery/verify-d2g-preflash.sh` before considering any D2G
+  device-side test.
 
 Detailed evidence:
 
@@ -45,3 +63,4 @@ Detailed evidence:
 - [Recovery image forensics](orangefox-port/rm11-orangefox-image-format-forensics-2026-06-07.md)
 - [AVBTEST1 comparison](orangefox-port/rm11-orangefox-avbtest1-image-format-comparison-2026-06-07.md)
 - [2026-06-09 stock-fstab/minimal-init candidate](orangefox-port/rm11-orangefox-stockfstab-mininit-test-candidate-2026-06-09.md)
+- [D2E/D2F/D2G decrypt candidates](orangefox-port/d2e-d2f-d2g-decrypt-candidates-2026-06-14.md)
