@@ -15,7 +15,7 @@ The dock for RM11 Pro mods: unlock, root, KSU/SUSFS, AnyKernel3, GSI/ROM testing
 | OP-WILD AnyKernel3 KSU/SUSFS | Validated test build |
 | KernelSU-only root | Confirmed |
 | GSI / ROM flow | WIP / reports |
-| OrangeFox recovery | Build-pass / flash-pass / boot-fail / rollback-pass |
+| OrangeFox recovery | D2N baseline, verifier-only public CI |
 | Modules / RedMagic tools | WIP |
 
 ## NX809J Canoe Without A Paddle
@@ -38,7 +38,7 @@ Merged RM11 working notes live in [Project Notes](docs/project-notes/README.md).
 
 OrangeFox RM10 Pro to RM11 Pro port evidence lives in [OrangeFox Port Notes](docs/orangefox-port/README.md). Raw recovery images, logs, and headers stay local under `/home/richtofen/.android/repositories/MainAssets/recovery-forensics` and are summarized in tracked docs.
 
-The curated OrangeFox device-tree source snapshot lives in [ports/orangefox-recovery](ports/orangefox-recovery/README.md).
+The curated OrangeFox device-tree source snapshot lives in [recovery](recovery/README.md), with the active device tree at `recovery/device/zte/sm88XX`.
 
 ## Release Policy
 
@@ -58,10 +58,11 @@ No artifact gets a stable label unless it has:
 
 ## Known Release Lanes
 
-- AnyKernel3 OP-WILD KSU/SUSFS: [validated test build](releases/anykernel/rm11pro-android16-6.12.23-opwild-ksun-susfs/README.md).
-- OrangeFox recovery: [WIP only](releases/recovery/orangefox/README.md), with port evidence in [OrangeFox Port Notes](docs/orangefox-port/README.md).
-- GSI/ROM reports: [reports only unless individually validated](releases/gsi-roms/README.md).
-- Modules and tools: [optional and device-specific](releases/modules/README.md).
+- AnyKernel3 OP-WILD KSU/SUSFS: lane placeholder in [AnyKernel3](anykernel3/README.md), older release notes are being reconciled before publication.
+- OrangeFox recovery: D2N baseline in [OrangeFox Port Notes](docs/orangefox-port/README.md), source lane in [recovery](recovery/README.md).
+- APKs: lane placeholder in [APKs](apks/README.md).
+- Modules and tools: lane placeholder in [Modules](modules/README.md).
+- Droidspaces/container work: paused lane in [Container](container/README.md).
 
 ## Project Lineage
 
