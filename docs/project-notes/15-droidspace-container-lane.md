@@ -169,7 +169,96 @@ One lane, one evidence folder, one rollback path.
 
 ## Next Evidence To Collect
 
-After booting Android:
+Captured baseline:
+
+```text
+/home/richtofen/.android/repositories/MainAssets/recovery-forensics/droidspace-android-baseline-20260615-030857/summary.txt
+```
+
+Command class:
+
+```text
+read-only adb/getprop/su/proc-config/package inventory after rebooting from D2N recovery into Android
+```
+
+Observed Android state:
+
+```text
+ro.product.device=NX809J
+ro.product.model=NX809J
+ro.build.fingerprint=REDMAGIC/NX809J-UN/NX809J:16/BQ2A.250705.001-BP2A.250605.031.A3/20260204.221606:user/release-keys
+ro.build.version.release=16
+ro.build.version.sdk=36
+ro.boot.slot_suffix=_a
+ro.crypto.state=encrypted
+ro.crypto.type=file
+ro.boot.verifiedbootstate=orange
+ro.boot.flash.locked=0
+ro.boot.vbmeta.device_state=unlocked
+sys.boot_completed=1
+```
+
+Kernel/root:
+
+```text
+Linux localhost 6.12.23-android16-OP-WILD #1 SMP PREEMPT Sat Jun  6 15:12:15 UTC 2026 aarch64 Toybox
+adb shell id: uid=2000(shell)
+su -c id: uid=0(root) gid=0(root) context=u:r:ksu:s0
+SELinux: Enforcing
+```
+
+Package focus:
+
+```text
+No Droidspaces, Termux, Termux:X11, KernelSU Manager, Magisk, APatch, LSPosed,
+Zygisk, Winlator, or VirtualAP package matched the package-focus grep at capture
+time.
+```
+
+Kernel config hits:
+
+```text
+CONFIG_SYSVIPC=y
+CONFIG_POSIX_MQUEUE=y
+CONFIG_CGROUPS=y
+CONFIG_MEMCG=y
+CONFIG_MEMCG_V1=y
+CONFIG_NAMESPACES=y
+CONFIG_UTS_NS=y
+CONFIG_IPC_NS=y
+CONFIG_PID_NS=y
+CONFIG_SECCOMP=y
+CONFIG_SECCOMP_FILTER=y
+CONFIG_NETFILTER=y
+CONFIG_NETFILTER_XT_MATCH_ADDRTYPE=y
+CONFIG_NETFILTER_XT_MATCH_RECENT=y
+CONFIG_IP_SET=y
+CONFIG_DEVTMPFS=y
+CONFIG_NTSYNC=y
+```
+
+Kernel config caveats:
+
+```text
+# CONFIG_CGROUP_PIDS is not set
+# CONFIG_CGROUP_DEVICE is not set
+# CONFIG_USER_NS is not set
+# CONFIG_DEVTMPFS_MOUNT is not set
+```
+
+Interpretation:
+
+- Root and Android-side capture path work.
+- SELinux is enforcing, so policy denials should be expected and captured
+  instead of papered over.
+- Core namespace and IPC requirements are present.
+- The missing cgroup/user namespace options may affect Docker/nested-container
+  or stricter Droidspaces modes, but the real verdict should come from the
+  Droidspaces checker before any rootfs import.
+- The next device write should be APK install only; do not import rootfs or
+  apply kernel patches until the checker output is saved.
+
+Useful command template:
 
 ```bash
 adb shell uname -a
