@@ -13,7 +13,7 @@ Source roles:
 Current status:
 
 ```text
-build-pass / recovery_a-dd-test-fail / rollback-pass / stockfstab-mininit-candidate-built / codingbr-sm88xx-nx809j-splash-adb-pass-ui-blocked / rollback-pass / d1-nodecrypt-ui-adb-pass / d1t-d1t2-touch-fail / d1t3-basic-ui-touch-navigation-pass / d2e-boot-adb-pass-crypto-disabled / d2f-crypto-enabled-animation-stall / d2g-preflash-marker-proof-pass-not-flashed
+build-pass / recovery_a-dd-test-fail / rollback-pass / stockfstab-mininit-candidate-built / codingbr-sm88xx-nx809j-splash-adb-pass-ui-blocked / rollback-pass / d1-nodecrypt-ui-adb-pass / d1t-d1t2-touch-fail / d1t3-basic-ui-touch-navigation-pass / d2e-boot-adb-pass-crypto-disabled / d2f-crypto-enabled-animation-stall / d2g-manual-service-probe / d2m-auto-decrypt-pass / d2n-current-recovery-baseline
 ```
 
 High-confidence facts:
@@ -59,19 +59,29 @@ High-confidence facts:
   `a806ffcc82eeec0ffd29d2c07f5f8e6c9a8669fce783ce3901e4f6711baa9664`.
   The built recovery root now proves the D2G marker and all manual
   `sys.rm11.d2g.*` triggers landed.
+- D2M proved the auto-decrypt lane: OrangeFox booted, crypto was enabled,
+  `/data` and `/sdcard` mounted decrypted, and the UI became usable after
+  applying the live lock/timeout settings.
+- D2N is the current recovery baseline. It preserves D2M decrypt behavior,
+  auto-starts gatekeeper after `vendor.sys.listeners.registered=true`, applies
+  durable UI lock/timeout defaults, and has human-confirmed tap, scroll, and
+  navigation. Its frozen image is exactly `104857600` bytes with SHA-256
+  `a9c70ce885b025fc4b1618798b99bdc05b45239fa76c880415198ab26d9a5fd0`.
 
 Safety rules:
 
-- Do not publish OrangeFox as usable yet.
+- Treat D2N as the current usable recovery baseline for the lab, with remaining
+  operations still requiring targeted validation.
 - Do not retest the original failed image or pre-stock-fstab AVBTEST1 image.
 - Keep stock `recovery_a` rollback ready before any device-side recovery test.
 - Test only one recovery slot first.
 - Treat the stock-fstab/minimal-init build as the next candidate only after the expected rollback path is confirmed.
 - Keep D1T3 in the no-decrypt lane until the Android 16 keymint/gatekeeper/qsee
   runtime issue is handled separately.
-- Do not flash D2G until `scripts/recovery/verify-d2g-preflash.sh` passes
-  against the frozen local artifact and the intended one-slot test plan is
-  explicit.
+- Keep D2N on one-slot recovery validation until MTP, fastbootd, backup,
+  restore, install, wipe, USB OTG, reboot-menu, and cross-slot workflows are
+  tested.
+- Keep Wi-Fi as a separate future lane.
 
 Key files:
 
@@ -87,6 +97,9 @@ Key files:
 - `d1t-touch-input-isolation-build-2026-06-11.md`: D1T build and touch-range test plan.
 - `d1t3-minuitwrp-touch-normalization-pass-2026-06-11.md`: D1T/D1T2 failure summary, D1T3 source patch, build metadata, and basic UI/touch pass result.
 - `d2e-d2f-d2g-decrypt-candidates-2026-06-14.md`: D2E/D2F results and D2G preflash marker proof.
+- `d2n-recovery-baseline-2026-06-15.md`: D2N frozen artifact hashes,
+  verifier scope, live decrypt/UI evidence, rollback paths, and remaining test
+  gaps.
 - `rm11-live-adb-baseline.md`: live Android 16 ADB baseline before recovery validation.
 - `rm11-post-ksun-adb-sanity.md`: post-KernelSU Android state.
 - `orangefox-sync-map.md`: local fox_14.1 and OrangeFox_sync map.
