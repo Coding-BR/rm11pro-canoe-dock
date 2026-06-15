@@ -26,8 +26,8 @@ files:
 The current patch intentionally moves those surfaces closer to the restored
 stock `recovery_a` ramdisk:
 
-- `ports/orangefox-recovery/device_nubia_NX809J/recovery.fstab`
-- `ports/orangefox-recovery/device_nubia_NX809J/recovery/root/init.recovery.qcom.rc`
+- `recovery/device/zte/sm88XX/recovery.fstab`
+- `recovery/device/zte/sm88XX/recovery/root/init.recovery.qcom.rc`
 
 ## Local Artifact
 
@@ -66,18 +66,17 @@ Image format:
 
 ## Build Command
 
-From WSL:
+Current local-build lane:
 
 ```bash
 cd /home/richtofen/.android/repositories/rm11pro-canoe-dock
-./scripts/build-orangefox-test-candidate.sh --copy-windows-temp
+./scripts/local-build/build-orangefox-nx809j-local.sh --env scripts/local-build/env-orangefox-nx809j.local
 ```
 
-Optional clean build:
+Historical one-off helper:
 
 ```bash
-cd /home/richtofen/.android/repositories/rm11pro-canoe-dock
-./scripts/build-orangefox-test-candidate.sh --clean --copy-windows-temp
+scripts/local-build/build-orangefox-test-candidate-legacy.sh
 ```
 
 ## Pre-Test Verification
