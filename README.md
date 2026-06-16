@@ -2,9 +2,11 @@
 
 RM11 Pro / REDMAGIC 11 Pro / NX809J root, GKI kernel, GSI/ROM, recovery, and module release hub.
 
-The dock for RM11 Pro mods: unlock, root, KSU/SUSFS, AnyKernel3, GSI/ROM testing, recovery WIP, and modules.
+The dock for RM11 Pro mods: unlock, root, KSU/SUSFS, AnyKernel3, GSI/ROM testing, recovery baselines, and modules.
 
 `canoe` is the RM11 Pro platform reference seen in device evidence. `dock` is where validated release work, rollback notes, hashes, and public guides land. This is not a kernel source archaeology repo, an OrangeFox device-tree repo, or the custom source-kernel lab.
+
+Route 1 safe public CI is merged to `main`. Public GitHub Actions are verifier-only for recovery, AnyKernel3, APK, and module lanes; full OrangeFox builds remain local/fork-owner controlled. D2N is the current RM11 Pro NX809J/canoe recovery baseline, not a universal stable guarantee across every firmware or local modification state.
 
 ## Current Status
 
@@ -15,8 +17,18 @@ The dock for RM11 Pro mods: unlock, root, KSU/SUSFS, AnyKernel3, GSI/ROM testing
 | OP-WILD AnyKernel3 KSU/SUSFS | Validated test build |
 | KernelSU-only root | Confirmed |
 | GSI / ROM flow | WIP / reports |
-| OrangeFox recovery | D2N baseline, verifier-only public CI |
-| Modules / RedMagic tools | WIP |
+| OrangeFox recovery | D2N current NX809J/canoe baseline |
+| AnyKernel3 / APK / module lanes | Staged as verifier lanes |
+| Modules / RedMagic tools | WIP / verifier lane staged |
+
+## Current Baseline
+
+- Route 1 safe public CI: merged to `main`.
+- Tag: `recovery-route1-d2n-baseline-2026-06-15`.
+- Merge commit: `83bdd11786e92c24a94eb2b7e696f80324c810d7`.
+- D2N recovery image SHA256: `a9c70ce885b025fc4b1618798b99bdc05b45239fa76c880415198ab26d9a5fd0`.
+- D2N recovery zip SHA256: `5394ee6e45417262f631c9783dc2904b5baeb2cbe9108561053b711c1ef62cab`.
+- Build policy: public CI verifies layout, scripts, hashes, and safety constraints only; full OrangeFox builds stay local/fork-owner controlled.
 
 ## NX809J Canoe Without A Paddle
 
@@ -58,10 +70,10 @@ No artifact gets a stable label unless it has:
 
 ## Known Release Lanes
 
-- AnyKernel3 OP-WILD KSU/SUSFS: lane placeholder in [AnyKernel3](anykernel3/README.md), older release notes are being reconciled before publication.
+- AnyKernel3 OP-WILD KSU/SUSFS: verifier lane staged in [AnyKernel3](anykernel3/README.md), older release notes are being reconciled before publication.
 - OrangeFox recovery: D2N baseline in [OrangeFox Port Notes](docs/orangefox-port/README.md), source lane in [recovery](recovery/README.md).
-- APKs: lane placeholder in [APKs](apks/README.md).
-- Modules and tools: lane placeholder in [Modules](modules/README.md).
+- APKs: verifier lane staged in [APKs](apks/README.md).
+- Modules and tools: verifier lane staged in [Modules](modules/README.md).
 - Droidspaces/container work: paused lane in [Container](container/README.md).
 
 ## Project Lineage
