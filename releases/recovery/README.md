@@ -1,9 +1,14 @@
 # Recovery Releases
 
-Recovery is WIP for RM11 Pro / NX809J.
+Recovery releases for RM11 Pro / REDMAGIC 11 Pro / NX809J.
 
-Current lane:
+Current prebuilt:
 
-- [OrangeFox WIP](orangefox/README.md)
+- [OrangeFox D2N baseline](orangefox/d2n-baseline/README.md)
 
-Do not publish recovery as usable until recovery UI, touch, ADB, mount/decryption behavior, and reboot-to-system all pass.
+D2N is the current public recovery baseline for NX809J/canoe. It is not a
+universal stable guarantee across every firmware, slot state, or local
+modification state.
+
+Full OrangeFox builds remain local/fork-owner controlled. Public GitHub Actions
+only verify repo layout, scripts, hashes, and safety constraints.

@@ -18,7 +18,7 @@ Route 1 safe public CI is merged to `main`. Public GitHub Actions are verifier-o
 | KernelSU-only root | Confirmed |
 | GSI / ROM flow | WIP / reports |
 | OrangeFox recovery | D2N current NX809J/canoe baseline |
-| AnyKernel3 / APK / module lanes | Staged as verifier lanes |
+| AnyKernel3 / APK / module lanes | AnyKernel3 Droidspace prebuilt; APK/module verifier lanes staged |
 | Modules / RedMagic tools | WIP / verifier lane staged |
 
 ## Current Baseline
@@ -70,8 +70,9 @@ No artifact gets a stable label unless it has:
 
 ## Known Release Lanes
 
+- AnyKernel3 Droidspace Goldbug guarded: prebuilt package in [AnyKernel releases](releases/anykernel/README.md).
 - AnyKernel3 OP-WILD KSU/SUSFS: verifier lane staged in [AnyKernel3](anykernel3/README.md), older release notes are being reconciled before publication.
-- OrangeFox recovery: D2N baseline in [OrangeFox Port Notes](docs/orangefox-port/README.md), source lane in [recovery](recovery/README.md).
+- OrangeFox recovery: D2N prebuilt in [Recovery releases](releases/recovery/README.md), source lane in [recovery](recovery/README.md).
 - APKs: verifier lane staged in [APKs](apks/README.md).
 - Modules and tools: verifier lane staged in [Modules](modules/README.md).
 - Droidspaces/container work: paused lane in [Container](container/README.md).

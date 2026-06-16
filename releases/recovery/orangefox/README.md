@@ -1,29 +1,35 @@
-# OrangeFox WIP
+# OrangeFox Recovery Releases
 
-Current classification:
+Current public prebuilt:
 
-```text
-build-pass / recovery_a-dd-test-fail / rollback-pass / stockfstab-mininit-candidate-built
-```
+- [D2N baseline](d2n-baseline/README.md)
 
-Artifacts are not committed here.
+D2N is the current RM11 Pro / REDMAGIC 11 Pro / NX809J recovery baseline. It
+booted to OrangeFox UI in the recovery lane and preserved the D1T3 touch/UI
+baseline. Treat it as the current baseline/release candidate, not a universal
+stable guarantee.
 
-Current known images:
-
-- Original failed image: `OrangeFox-R12.0-Unofficial-NX809J.img`.
-- AVBTEST1 rebuilt image: `OrangeFox-R12.0-Unofficial-NX809J-avbtest1.img`.
-- Current stock-fstab/minimal-init candidate: `OrangeFox-R12.0-Unofficial-NX809J.img`.
-
-Do not retest the original failed image.
-
-Do not treat AVBTEST1 as the next candidate unless intentionally comparing the
-older AVB-only patch. The current candidate also reduces early recovery init and
-fstab risk.
-
-Current local candidate SHA-256:
+Committed prebuilt:
 
 ```text
-9a3d822bbe8201321934a3e746b6c2efc6ef4c037939a858e94487fd866e2d4d
+d2n-baseline/OrangeFox-R12.0-Unofficial-NX809J-d2n-auto-decrypt-ui-gatekeeper-polish.zip
 ```
 
-Only test with one recovery slot and stock rollback ready.
+Hashes:
+
+```text
+5394ee6e45417262f631c9783dc2904b5baeb2cbe9108561053b711c1ef62cab  OrangeFox-R12.0-Unofficial-NX809J-d2n-auto-decrypt-ui-gatekeeper-polish.zip
+a9c70ce885b025fc4b1618798b99bdc05b45239fa76c880415198ab26d9a5fd0  embedded recovery.img
+```
+
+The raw `recovery.img` is not committed separately because it is exactly
+`104857600` bytes. The committed OrangeFox zip contains that image as
+`recovery.img`.
+
+Historical failed/probe candidates remain documented in:
+
+- [Build Result](BUILD-RESULT.md)
+- [Forensics](FORENSICS.md)
+- [Rollback](ROLLBACK.md)
+
+Only test recovery with one recovery slot and stock rollback ready.

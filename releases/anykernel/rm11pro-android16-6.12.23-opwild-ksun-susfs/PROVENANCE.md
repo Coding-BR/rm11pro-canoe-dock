@@ -9,7 +9,7 @@ AK3_RM11Pro_Android16_6.12.23_KSUN_SuSFS_v2.1.0_TEST.zip
 Current local package path:
 
 ```text
-/mnt/e/Android/RM-11-Pro/KERNELS/BUILDS/AK3_RM11Pro_Android16_6.12.23_KSUN_SuSFS_v2.1.0.zip
+<kernel-build-root>/AK3_RM11Pro_Android16_6.12.23_KSUN_SuSFS_v2.1.0.zip
 ```
 
 Lineage:

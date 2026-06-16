@@ -1,5 +1,15 @@
 # OrangeFox Forensics
 
+Current baseline:
+
+- D2N is the current public RM11 Pro / NX809J OrangeFox baseline.
+- D2N preserves the D1T3 touch/UI baseline and adds the later decrypt/security
+  service work recorded in the recovery notes.
+- The committed prebuilt is the OrangeFox zip. Its embedded `recovery.img`
+  matches the D2N baseline image hash.
+- Older candidates below are historical evidence and should not be treated as
+  preferred release artifacts.
+
 Forensic summary:
 
 - Stock recovery and failed OrangeFox are both Android boot image header v4 ramdisk-only recovery images.

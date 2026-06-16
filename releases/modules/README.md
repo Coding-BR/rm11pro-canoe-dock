@@ -11,12 +11,12 @@ Examples:
 Current local module/tool references:
 
 ```text
-/mnt/e/Android/RM-11-Pro/MODULES/gpp-enable-module
-/mnt/e/Android/RM-11-Pro/MODULES/gpp-enable-module.zip
-/mnt/e/Android/RM-11-Pro/MODULES/v34.3-Integrity-Box-04-04-2026
-/home/richtofen/android/toolbox/NubiaToolkit
-/home/richtofen/android/toolbox/Redmagic-Control-Center
-/home/richtofen/android/toolbox/reversa
+<module-build-root>/gpp-enable-module
+<module-build-root>/gpp-enable-module.zip
+<module-build-root>/v34.3-Integrity-Box-04-04-2026
+<toolbox-root>/NubiaToolkit
+<toolbox-root>/Redmagic-Control-Center
+<toolbox-root>/reversa
 ```
 
 The dock tracks only notes and manifests for these. Do not commit module zips,

@@ -1,5 +1,16 @@
 # OrangeFox Build Result
 
+D2N baseline:
+
+- Build: PASS.
+- Pre-flash verifier: PASS.
+- Public prebuilt zip committed under `releases/recovery/orangefox/d2n-baseline`.
+- Recovery image size: `104857600`.
+- Recovery image SHA-256: `a9c70ce885b025fc4b1618798b99bdc05b45239fa76c880415198ab26d9a5fd0`.
+- OrangeFox zip SHA-256: `5394ee6e45417262f631c9783dc2904b5baeb2cbe9108561053b711c1ef62cab`.
+- Device result: booted to OrangeFox UI; touch, scrolling, and navigation worked.
+- Classification: current NX809J/canoe recovery baseline, not a universal stable guarantee.
+
 Original OrangeFox NX809J image:
 
 - Build: PASS.
@@ -39,5 +50,5 @@ Hash:
 Local artifact:
 
 ```text
-/home/richtofen/android/repositories/MainAssets/fox_14.1/out/target/product/NX809J/OrangeFox-R12.0-Unofficial-NX809J.img
+<orangefox-tree>/out/target/product/NX809J/OrangeFox-R12.0-Unofficial-NX809J.img
 ```
