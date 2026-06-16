@@ -36,6 +36,52 @@ Route 1 safe public CI is merged to `main`. Public GitHub Actions are verifier-o
 
 You are modifying Qualcomm boot-chain security. A wrong partition, wrong model, wrong slot, or mismatched AVB chain can break boot, route the device to fastboot/dumper mode, or require EDL recovery.
 
+## Recovery / TWRP Safety
+
+> [!CAUTION]
+> Do not try to fix or change the device fingerprint after using TWRP or OrangeFox recovery.
+
+> [!CAUTION]
+> Do not install TWRP or OrangeFox while Magisk or KernelSU modules are active.
+
+The `abl_unlock.elf` userdebug ABL file is included in this repository. It can be flashed with ZTE Toolbox to make fastboot access easier.
+
+To enable fastboot with ZTE Toolbox:
+
+1. Open ZTE Toolbox.
+2. Select option `12`.
+3. Enter the target ABL partition name: `abl_a` or `abl_b`.
+4. Flash the included `abl_unlock.elf` userdebug ABL.
+5. Reboot the phone into fastboot:
+
+```shell
+adb reboot bootloader
+```
+
+You can also flash recovery directly with ZTE Toolbox:
+
+1. Select option `12`.
+2. Enter the target recovery partition name: `recovery_a` or `recovery_b`.
+3. Repeat the same step for the other recovery slot if you want to flash both `recovery_a` and `recovery_b`.
+
+Manual fastboot recovery commands:
+
+```shell
+fastboot flash recovery_a recovery.img
+fastboot flash recovery_b recovery.img
+```
+
+For GSI ROM installation, disable verity and verification on the vbmeta partitions from fastboot:
+
+```shell
+fastboot --disable-verity flash vbmeta_a vbmeta.img
+fastboot --disable-verity flash vbmeta_b vbmeta.img
+fastboot --disable-verity --disable-verification flash vbmeta_system_a vbmeta_system.img
+fastboot --disable-verity --disable-verification flash vbmeta_system_b vbmeta_system.img
+```
+
+If the phone enters a bootloop after installation, open ZTE Toolbox and select option `19`.
+
 ## Start Here
 
 1. Read [Read This First](docs/00-read-this-first.md).
