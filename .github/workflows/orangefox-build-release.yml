@@ -1,0 +1,190 @@
+name: OrangeFox Build And Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: Optional release tag. Defaults to orangefox-nx809j-YYYYMMDD-runN.
+        required: false
+        type: string
+      publish_release:
+        description: Publish a GitHub release after a successful build.
+        required: true
+        default: true
+        type: boolean
+      prerelease:
+        description: Mark the GitHub release as a prerelease.
+        required: true
+        default: true
+        type: boolean
+  push:
+    tags:
+      - orangefox-nx809j-*
+
+permissions:
+  contents: write
+
+concurrency:
+  group: orangefox-build-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  orangefox-build-release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    env:
+      ORANGEFOX_TREE: ${{ github.workspace }}/fox_14.1
+      ARTIFACTS_DIR: ${{ github.workspace }}/out/github-orangefox-nx809j
+      BUILD_ENV_FILE: ${{ github.workspace }}/out/github-orangefox-nx809j.env
+      PRODUCT_CODENAME: NX809J
+      LUNCH_TARGET: orangefox_NX809J-ap2a-eng
+      BUILD_GOALS: adbd recoveryimage
+      JOBS: 4
+    steps:
+      - name: Checkout dock
+        uses: actions/checkout@v4
+
+      - name: Show initial disk and runner state
+        run: |
+          set -euxo pipefail
+          uname -a
+          nproc
+          free -h
+          df -h
+
+      - name: Free runner disk space
+        run: |
+          set -euxo pipefail
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL || true
+          sudo rm -rf /opt/hostedtoolcache/Python /opt/hostedtoolcache/node || true
+          sudo apt-get clean
+          sudo docker system prune -af || true
+          df -h
+
+      - name: Configure swap and Git
+        run: |
+          set -euxo pipefail
+          sudo fallocate -l 8G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          free -h
+          df -h
+
+      - name: Install build dependencies
+        run: |
+          set -euxo pipefail
+          sudo apt-get update
+          if apt-cache show openjdk-11-jdk >/dev/null 2>&1; then
+            jdk_package=openjdk-11-jdk
+          else
+            jdk_package=openjdk-17-jdk
+          fi
+          sudo apt-get install -y \
+            git curl wget python3 python-is-python3 \
+            bc bison build-essential ccache flex \
+            g++-multilib gcc-multilib gnupg gperf \
+            imagemagick lib32ncurses-dev lib32readline-dev \
+            lib32z1-dev lz4 libncurses-dev libsdl1.2-dev \
+            libssl-dev libwxgtk3.2-dev libxml2-dev \
+            libxml2-utils lzop pngcrush repo rsync schedtool \
+            squashfs-tools xsltproc zip zlib1g-dev "$jdk_package"
+          java -version
+          df -h
+
+      - name: Sync OrangeFox 14.1 source
+        run: |
+          set -euxo pipefail
+          available_gb="$(df -BG "$GITHUB_WORKSPACE" | awk 'NR==2 {gsub("G","",$4); print $4}')"
+          if [ "$available_gb" -lt 120 ]; then
+            printf 'WARN: only %sGB available before OrangeFox sync; this public runner may not be large enough for a full build.\n' "$available_gb"
+          fi
+          git clone https://gitlab.com/OrangeFox/sync.git "$RUNNER_TEMP/OrangeFox_sync"
+          bash "$RUNNER_TEMP/OrangeFox_sync/orangefox_sync.sh" --branch 14.1 --path "$ORANGEFOX_TREE"
+          df -h
+
+      - name: Write build environment
+        run: |
+          set -euxo pipefail
+          mkdir -p "$(dirname "$BUILD_ENV_FILE")"
+          cat >"$BUILD_ENV_FILE" <<EOF
+          ORANGEFOX_TREE="${ORANGEFOX_TREE}"
+          DEVICE_TREE_SOURCE="${GITHUB_WORKSPACE}/recovery/device/zte/sm88XX"
+          DEVICE_TREE_DEST_REL="device/zte/sm88XX"
+          DEVICE_TREE_MODE="copy"
+          PRODUCT_CODENAME="${PRODUCT_CODENAME}"
+          LUNCH_TARGET="${LUNCH_TARGET}"
+          BUILD_GOALS="${BUILD_GOALS}"
+          JOBS="${JOBS}"
+          ARTIFACTS_DIR="${ARTIFACTS_DIR}"
+          EOF
+          cat "$BUILD_ENV_FILE"
+
+      - name: Build OrangeFox recovery
+        run: |
+          set -euxo pipefail
+          scripts/local-build/build-orangefox-nx809j-local.sh --env "$BUILD_ENV_FILE" --force-device-tree
+          df -h
+
+      - name: Prepare release notes
+        run: |
+          set -euxo pipefail
+          mkdir -p "$ARTIFACTS_DIR"
+          cat >"$ARTIFACTS_DIR/RELEASE-NOTES.md" <<'EOF'
+          OrangeFox NX809J build produced by GitHub Actions.
+
+          This is a build artifact, not proof that recovery boot, touch, ADB, MTP, decryption, flashing ZIPs, backup/restore, fastbootd, or USB OTG are working on-device.
+
+          Test cautiously on `recovery_a` first and keep stock recovery rollback ready.
+          EOF
+          ls -lah "$ARTIFACTS_DIR"
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: orangefox-nx809j-${{ github.run_number }}
+          path: |
+            ${{ env.ARTIFACTS_DIR }}/*
+          if-no-files-found: error
+
+      - name: Resolve release tag
+        if: github.event_name == 'push' || inputs.publish_release
+        id: release_tag
+        run: |
+          set -euxo pipefail
+          if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
+            tag="${GITHUB_REF_NAME}"
+          elif [ -n "${{ inputs.tag_name }}" ]; then
+            tag="${{ inputs.tag_name }}"
+          else
+            tag="orangefox-nx809j-$(date -u +%Y%m%d)-run${GITHUB_RUN_NUMBER}"
+          fi
+          printf 'tag=%s\n' "$tag" >>"$GITHUB_OUTPUT"
+
+      - name: Publish GitHub release
+        if: github.event_name == 'push' || inputs.publish_release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.release_tag.outputs.tag }}
+          PRERELEASE: ${{ github.event_name == 'push' && 'true' || inputs.prerelease }}
+        run: |
+          set -euxo pipefail
+          assets=()
+          while IFS= read -r artifact; do
+            assets+=("$artifact")
+          done < <(find "$ARTIFACTS_DIR" -maxdepth 1 -type f \( -name 'OrangeFox*.img' -o -name 'OrangeFox*.zip' -o -name 'recovery.img' -o -name 'SHA256SUMS' \) | sort)
+          [ "${#assets[@]}" -gt 0 ]
+
+          flags=()
+          if [ "$PRERELEASE" = "true" ]; then
+            flags+=(--prerelease)
+          fi
+
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "${assets[@]}" --clobber
+            gh release edit "$RELEASE_TAG" --title "$RELEASE_TAG" --notes-file "$ARTIFACTS_DIR/RELEASE-NOTES.md" "${flags[@]}"
+          else
+            gh release create "$RELEASE_TAG" "${assets[@]}" --title "$RELEASE_TAG" --notes-file "$ARTIFACTS_DIR/RELEASE-NOTES.md" "${flags[@]}"
+          fi

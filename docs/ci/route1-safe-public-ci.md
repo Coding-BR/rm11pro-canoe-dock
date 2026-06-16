@@ -2,9 +2,10 @@
 
 Date: 2026-06-15
 
-Route 1 means public GitHub-hosted CI performs only lightweight verification.
-It does not build full Android trees and does not run on the maintainer's
-machine.
+Route 1 means public GitHub-hosted CI performs lightweight verification by
+default. The only full-build exception is the experimental OrangeFox build and
+release workflow, which runs on a public GitHub-hosted runner and is expected to
+fail clearly if the runner does not have enough disk space.
 
 ## Allowed In Public Actions
 
@@ -13,6 +14,8 @@ machine.
 - Run `bash -n` and ShellCheck on tracked shell scripts.
 - Verify local verifier scripts are executable.
 - Check packaging lanes have placeholder policy files.
+- Run the experimental OrangeFox build/release workflow on manual dispatch or
+  `orangefox-nx809j-*` tags.
 
 ## Forbidden In Public Actions
 
@@ -20,15 +23,18 @@ machine.
 - public PR jobs on a private workstation
 - private local paths such as `<user-home>`
 - secrets or tokens for build access
-- `repo sync`, full OrangeFox/AOSP builds, kernel builds, or flashing
+- full OrangeFox/AOSP builds outside the explicit build/release workflow,
+  kernel builds, or flashing
 - `adb`, `fastboot`, `dd`, or any device write action
 
 ## Full Builds
 
-Full OrangeFox builds stay local to the person doing the build, or move to an
-explicitly owned runner later. A fork owner may run the local build scripts in
-their own hydrated source tree. This repository does not grant anyone access to
-the maintainer's WSL install, device, keys, or private artifact folders.
+Full OrangeFox builds are attempted by
+`.github/workflows/orangefox-build-release.yml` as an experimental public
+runner path. GitHub-hosted standard runners may not have enough free disk for a
+full OrangeFox/AOSP sync and build, so the workflow must print `df -h` before
+and after large steps. If it fails for capacity, move the same workflow to a
+larger runner or self-hosted runner.
 
 ## Current Recovery Gate
 

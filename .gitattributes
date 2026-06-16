@@ -1,2 +1,4 @@
 docs/orangefox-port/candidate-diffs/*.diff -whitespace
 scripts/orangefox-sync/patches/*.diff -whitespace
+*.sh text eol=lf
+.github/workflows/*.yml text eol=lf

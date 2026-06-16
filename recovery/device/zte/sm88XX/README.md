@@ -27,12 +27,13 @@
 
 This branch is an NX809J port with stock image evidence and live Android ADB evidence applied. It builds successfully. The latest confirmed device-side test wrote only `recovery_a` from rooted Android, reached the RedMagic logo, and did not reach OrangeFox UI or recovery ADB. Stock `recovery_a` rollback succeeded and Android boot was restored.
 
-The current local candidate keeps the recovery AVB signing metadata and also replaces the vendor_boot-derived fstab/init surfaces with stock-derived recovery fstab and stock-minimal qcom init. It has not been device-tested after that rebuild.
+The current local candidate keeps the recovery AVB signing metadata, replaces the vendor_boot-derived fstab/init surfaces with stock-derived recovery fstab and stock-minimal qcom init, and ports the working TWRP USB sideload, Wi-Fi init import, and AWINIC haptics permission hooks. It has not been device-tested after that rebuild.
 
 | Feature | Status |
 |---------|--------|
 | Build | PASS (`OrangeFox-R12.0-Unofficial-NX809J.img` / `.zip`) |
 | Stock-fstab/minimal-init rebuild | PASS; pre-flash image verification passed |
+| TWRP fix carry-over | USB sideload, Wi-Fi init import, and haptics permission hooks staged; not device-validated in OrangeFox |
 | `fastboot boot` | FAIL (`Bad Buffer Size`) |
 | Write `recovery_a` from rooted Android | PASS |
 | Boot to OrangeFox recovery | FAIL, RedMagic logo hang |
@@ -71,6 +72,7 @@ The current local candidate keeps the recovery AVB signing metadata and also rep
 - Recovery image/header forensics are recorded in [`docs/rm11-orangefox-image-format-forensics-2026-06-07.md`](docs/rm11-orangefox-image-format-forensics-2026-06-07.md). Stock and OrangeFox are both Android boot image header v4 ramdisk-only recovery images, but stock has a signed `SHA256_RSA4096` recovery AVB footer and the failed OrangeFox image has `Algorithm: NONE`.
 - AVBTEST1 comparison evidence is recorded in [`docs/rm11-orangefox-avbtest1-image-format-comparison-2026-06-07.md`](docs/rm11-orangefox-avbtest1-image-format-comparison-2026-06-07.md). AVBTEST1 fixed the hard footer mismatch: `SHA256_RSA4096`, rollback index `1`, rollback location `0`, and auth block present.
 - The 2026-06-09 logo-hang evidence is recorded in [`docs/rm11-orangefox-recovery-a-logo-hang-2026-06-09.md`](docs/rm11-orangefox-recovery-a-logo-hang-2026-06-09.md).
+- Working TWRP carry-over changes staged here include the tested sideload USB product ID path, copying/importing Wi-Fi recovery init, and AWINIC haptics permissions. These are build-time carry-overs only until OrangeFox is boot-tested.
 
 ## Important Unknowns
 
@@ -79,7 +81,7 @@ The current local candidate keeps the recovery AVB signing metadata and also rep
 - The experimental NX809J kernel work is useful context, but this tree currently uses stock RM11 prebuilts as the baseline.
 - Recovery boot failed on the first rooted-Android `recovery_a` test image. Live Android properties, by-name links, input device names, loaded modules, and basic sysfs paths have been captured.
 - The local OrangeFox source tree now exists at `<orangefox-tree>`; build validation passed again after the stock-fstab/minimal-init patch.
-- Do not publish or retest the original failed OrangeFox image. The next eligible device-side test is the stock-fstab/minimal-init image only, and only as a cautious controlled one-slot test with stock `recovery_a` rollback ready.
+- Do not publish or retest the original failed OrangeFox image. The next eligible device-side test is the stock-fstab/minimal-init plus TWRP carry-over image only, and only as a cautious controlled one-slot test with stock `recovery_a` rollback ready.
 
 ## Building
 

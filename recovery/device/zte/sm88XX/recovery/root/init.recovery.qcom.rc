@@ -25,9 +25,13 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+import /init.recovery.wifi.rc
+import /init.recovery.haptics.rc
+
 # Stock NX809J recovery_a keeps the device hook minimal. Do not start
-# decryption, vibrator, touchscreen, firmware, fan, or LED vendor services
-# here until the recovery image reaches UI/ADB.
+# decryption, touchscreen, firmware, fan, or LED vendor services here until
+# the recovery image reaches UI/ADB. Imported Wi-Fi and haptics hooks stay
+# property-gated or permission-only.
 on init
     write /sys/class/backlight/panel0-backlight/brightness 200
     setprop sys.usb.configfs 1

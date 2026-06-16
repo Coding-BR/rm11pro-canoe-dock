@@ -33,7 +33,12 @@ contains_literal() {
 reject_workflow_pattern() {
   local pattern="$1"
   local label="$2"
-  if grep -R -n -E "$pattern" "$REPO_ROOT/.github/workflows" >/tmp/rm11-route1-workflow-hit.txt 2>/dev/null; then
+  shift 2
+  local paths=("$@")
+  if [ "${#paths[@]}" -eq 0 ]; then
+    paths=("$REPO_ROOT/.github/workflows")
+  fi
+  if grep -R -n -E "$pattern" "${paths[@]}" >/tmp/rm11-route1-workflow-hit.txt 2>/dev/null; then
     sed -n '1,40p' /tmp/rm11-route1-workflow-hit.txt >&2
     fail "forbidden workflow pattern found: $label"
   fi
@@ -64,6 +69,7 @@ done
 
 for file in \
   .github/workflows/recovery-verify.yml \
+  .github/workflows/orangefox-build-release.yml \
   .github/workflows/anykernel3-verify.yml \
   .github/workflows/apk-verify.yml \
   .github/workflows/module-verify.yml \
@@ -96,11 +102,15 @@ done
 
 reject_workflow_pattern 'self-hosted' 'self-hosted runner'
 reject_workflow_pattern '/home/[A-Za-z0-9._-]+' 'private maintainer path'
-reject_workflow_pattern '(^|[[:space:]])repo[[:space:]]+sync([[:space:]]|$)' 'repo sync'
 reject_workflow_pattern '(^|[[:space:]])fastboot([[:space:]]|$)' 'fastboot'
 reject_workflow_pattern '(^|[[:space:]])adb([[:space:]]|$)' 'adb'
 reject_workflow_pattern '(^|[[:space:]])dd[[:space:]]+if=' 'dd partition reads/writes'
 reject_workflow_pattern 'secrets\.' 'GitHub secrets'
+reject_workflow_pattern '(^|[[:space:]])repo[[:space:]]+sync([[:space:]]|$)' 'repo sync' \
+  "$REPO_ROOT/.github/workflows/recovery-verify.yml" \
+  "$REPO_ROOT/.github/workflows/anykernel3-verify.yml" \
+  "$REPO_ROOT/.github/workflows/apk-verify.yml" \
+  "$REPO_ROOT/.github/workflows/module-verify.yml"
 
 mapfile -t bash_scripts < <(
   {
