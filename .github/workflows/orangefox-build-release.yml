@@ -100,7 +100,8 @@ jobs:
             printf 'WARN: only %sGB available before OrangeFox sync; this public runner may not be large enough for a full build.\n' "$available_gb"
           fi
           git clone https://gitlab.com/OrangeFox/sync.git "$RUNNER_TEMP/OrangeFox_sync"
-          bash "$RUNNER_TEMP/OrangeFox_sync/orangefox_sync.sh" --branch 14.1 --path "$ORANGEFOX_TREE"
+          cd "$RUNNER_TEMP/OrangeFox_sync"
+          bash ./orangefox_sync.sh --branch 14.1 --path "$ORANGEFOX_TREE"
           df -h
 
       - name: Write build environment
