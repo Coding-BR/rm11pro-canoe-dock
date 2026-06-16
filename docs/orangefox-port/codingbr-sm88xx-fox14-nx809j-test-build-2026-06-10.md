@@ -14,13 +14,13 @@ https://github.com/Coding-BR/android_device_zte_sm88XX-twrp
 Local copied tree:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/fox_14.1/device/zte/sm88XX
+<orangefox-tree>/device/zte/sm88XX
 ```
 
 Build tree:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/fox_14.1
+<orangefox-tree>
 ```
 
 The copied tree is not treated as a wholesale replacement for the existing
@@ -69,7 +69,7 @@ Important local adjustments:
 Verified with:
 
 ```text
-cd /home/richtofen/.android/repositories/MainAssets/fox_14.1
+cd <orangefox-tree>
 source build/envsetup.sh
 lunch orangefox_NX809J_codingbr-ap2a-eng
 ```
@@ -106,7 +106,7 @@ sm8850 / canoe / Oryon. It is not using the old RM10 Pro SoC identity.
 ## Build Command
 
 ```text
-cd /home/richtofen/.android/repositories/MainAssets/fox_14.1
+cd <orangefox-tree>
 source build/envsetup.sh
 lunch orangefox_NX809J_codingbr-ap2a-eng
 mka recoveryimage
@@ -123,7 +123,7 @@ build completed successfully
 Output directory:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/fox_14.1/out/target/product/sm88XX
+<orangefox-tree>/out/target/product/sm88XX
 ```
 
 Files:

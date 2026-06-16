@@ -11,7 +11,7 @@ fi
 
 IMAGE="$(realpath "$1")"
 OUT_DIR="$(realpath -m "$2")"
-UNPACK_BOOTIMG="${3:-${UNPACK_BOOTIMG:-/home/richtofen/.android/repositories/MainAssets/fox_14.1/system/tools/mkbootimg/unpack_bootimg.py}}"
+UNPACK_BOOTIMG="${3:-${UNPACK_BOOTIMG:-${HOME}/.android/repositories/MainAssets/fox_14.1/system/tools/mkbootimg/unpack_bootimg.py}}"
 UNPACK_BOOTIMG="$(realpath "$UNPACK_BOOTIMG")"
 
 fail() {

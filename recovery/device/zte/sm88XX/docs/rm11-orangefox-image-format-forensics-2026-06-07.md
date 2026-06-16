@@ -18,13 +18,13 @@ No rebuild, retest, or publishing was done during this pass.
 
 | Image | Source | Forensic copy |
 |-------|--------|---------------|
-| Stock recovery | `E:\Android\RM-11-Pro\RECOVERY\BACKUP-BEFORE-ORANGEFOX-2026-06-07\recovery_a_stock_before_orangefox.img` | `/home/richtofen/.android/repositories/MainAssets/recovery-forensics/rm11-orangefox-2026-06-07/stock_recovery_a.img` |
-| OrangeFox recovery | `C:\Users\Richtofen\Documents\Codex\2026-06-07\files-mentioned-by-the-user-anykernel3\outputs\rm11pro-orangefox-build\OrangeFox-R12.0-Unofficial-NX809J.img` | `/home/richtofen/.android/repositories/MainAssets/recovery-forensics/rm11-orangefox-2026-06-07/orangefox_recovery.img` |
+| Stock recovery | `E:\Android\RM-11-Pro\RECOVERY\BACKUP-BEFORE-ORANGEFOX-2026-06-07\recovery_a_stock_before_orangefox.img` | `<local-build-root>/recovery-forensics/rm11-orangefox-2026-06-07/stock_recovery_a.img` |
+| OrangeFox recovery | `C:\Users\Richtofen\Documents\Codex\2026-06-07\files-mentioned-by-the-user-anykernel3\outputs\rm11pro-orangefox-build\OrangeFox-R12.0-Unofficial-NX809J.img` | `<local-build-root>/recovery-forensics/rm11-orangefox-2026-06-07/orangefox_recovery.img` |
 
 Forensic workspace:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/rm11-orangefox-2026-06-07/
+<local-build-root>/recovery-forensics/rm11-orangefox-2026-06-07/
 ```
 
 ## Basic File Comparison

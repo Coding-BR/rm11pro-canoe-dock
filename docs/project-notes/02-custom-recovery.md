@@ -69,12 +69,12 @@ Local recovery assets found:
 
 - `/mnt/e/Android/RM-11-Pro/RECOVERY/BACKUP-BEFORE-ORANGEFOX-2026-06-07/recovery_a_stock_before_orangefox.img`
 - `/mnt/e/Android/RM-11-Pro/RECOVERY/BACKUP-BEFORE-ORANGEFOX-2026-06-07/recovery_b_stock_before_orangefox.img`
-- `/home/richtofen/.android/repositories/MainAssets/recovery-forensics/rm11-orangefox-2026-06-07/`
-- `/home/richtofen/.android/repositories/MainAssets/recovery-forensics/rm11-orangefox-avbtest1-2026-06-07/`
+- `<local-build-root>/recovery-forensics/rm11-orangefox-2026-06-07/`
+- `<local-build-root>/recovery-forensics/rm11-orangefox-avbtest1-2026-06-07/`
 
 Repo note:
 
-- Raw recovery images, logs, and headers now live under `/home/richtofen/.android/repositories/MainAssets/recovery-forensics`.
+- Raw recovery images, logs, and headers now live under `<local-build-root>/recovery-forensics`.
 - `rm11pro-canoe-dock/recovery-forensics/` is only a tracked pointer folder.
 - Tracked OrangeFox summaries now live in [../orangefox-port/README.md](../orangefox-port/README.md).
 
@@ -82,6 +82,6 @@ Repo note:
 
 - `/mnt/e/Android/RM-11-Pro/staging-notes/RECOVERY.md`
 - `/mnt/e/Android/RM-11-Pro/staging-notes/X1_FUTURE_ROM_RECOVERY_RUNWAY.md`
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/13-custom-recovery-wip.md`
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/14-orangefox-wip.md`
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J/docs/`
+- `<repo-root>/docs/13-custom-recovery-wip.md`
+- `<repo-root>/docs/14-orangefox-wip.md`
+- `<repo-root>/recovery/device/zte/sm88XX/docs/`

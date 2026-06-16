@@ -4,7 +4,7 @@ set -euo pipefail
 # Fetch-only/clone-only sync for the post-recovery Droidspace lane.
 # Existing repositories are fetched, not pulled or reset.
 
-REPO_ROOT="${REPO_ROOT:-/home/richtofen/.android/repositories}"
+REPO_ROOT="${REPO_ROOT:-${HOME}/.android/repositories}"
 TARGET_DIR="${TARGET_DIR:-${REPO_ROOT}/droidspace-core}"
 
 clone_or_fetch() {

@@ -103,7 +103,7 @@ Do not promote:
 ## Source References
 
 - `/mnt/e/Android/RM-11-Pro/staging-notes/MODULES.md`
-- `/home/richtofen/.android/devices/RedMagic-11-Pro/output/notes-archive/rm11-notes-pre-categorize-20260608-215543.tar.gz`
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/15-modules-and-tools.md`
+- `<local-build-root>/devices/RedMagic-11-Pro/output/notes-archive/rm11-notes-pre-categorize-20260608-215543.tar.gz`
+- `<repo-root>/docs/15-modules-and-tools.md`
 - Former local `rm11-recovery-next-from-myfork-main` touchscreen/module notes, reviewed before cleanup and summarized here.
 - Re-clone `https://github.com/Coding-BR/android_kernel_nubia_sm8850_qwjujube` when module source work resumes.

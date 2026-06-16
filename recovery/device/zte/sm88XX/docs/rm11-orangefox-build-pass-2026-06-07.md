@@ -12,22 +12,22 @@ This is a build pass only. Later device testing showed the same image flashed to
 
 OrangeFox source:
 
-`/home/richtofen/.android/repositories/MainAssets/fox_14.1`
+`<orangefox-tree>`
 
 Active device tree:
 
-`/home/richtofen/.android/repositories/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J`
+`<repo-root>/recovery/device/zte/sm88XX`
 
 Build copy used by Android build system:
 
-`/home/richtofen/.android/repositories/MainAssets/fox_14.1/device/nubia/NX809J`
+`<orangefox-tree>/device/nubia/NX809J`
 
 The build tree uses a real copied device directory because Android product discovery did not recognize the device tree through a symlink.
 
 ## Build Command
 
 ```bash
-cd "/home/richtofen/.android/repositories/MainAssets/fox_14.1"
+cd "<orangefox-tree>"
 source build/envsetup.sh
 lunch orangefox_NX809J-ap2a-eng
 mka -j8 adbd recoveryimage
@@ -44,10 +44,10 @@ Build completed successfully:
 Historical generated artifacts from the observed build pass. These files are not currently present after cleanup; rebuild to regenerate them:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/fox_14.1/out/target/product/NX809J/OrangeFox-R12.0-Unofficial-NX809J.img
-/home/richtofen/.android/repositories/MainAssets/fox_14.1/out/target/product/NX809J/OrangeFox-R12.0-Unofficial-NX809J.img.md5
-/home/richtofen/.android/repositories/MainAssets/fox_14.1/out/target/product/NX809J/OrangeFox-R12.0-Unofficial-NX809J.zip
-/home/richtofen/.android/repositories/MainAssets/fox_14.1/out/target/product/NX809J/OrangeFox-R12.0-Unofficial-NX809J.zip.md5
+<orangefox-tree>/out/target/product/NX809J/OrangeFox-R12.0-Unofficial-NX809J.img
+<orangefox-tree>/out/target/product/NX809J/OrangeFox-R12.0-Unofficial-NX809J.img.md5
+<orangefox-tree>/out/target/product/NX809J/OrangeFox-R12.0-Unofficial-NX809J.zip
+<orangefox-tree>/out/target/product/NX809J/OrangeFox-R12.0-Unofficial-NX809J.zip.md5
 ```
 
 ## Hashes
@@ -75,8 +75,8 @@ Headroom: 0 bytes
 
 ## Build Fixes Applied
 
-- Synced OrangeFox `fox_14.1` source to `/home/richtofen/.android/repositories/MainAssets/fox_14.1`.
-- Copied the RM11 device tree into `/home/richtofen/.android/repositories/MainAssets/fox_14.1/device/nubia/NX809J`.
+- Synced OrangeFox `fox_14.1` source to `<orangefox-tree>`.
+- Copied the RM11 device tree into `<orangefox-tree>/device/nubia/NX809J`.
 - Updated `AndroidProducts.mk` lunch choices to the Android 14 release-qualified form:
   - `orangefox_NX809J-ap2a-eng`
   - `orangefox_NX809J-ap2a-userdebug`

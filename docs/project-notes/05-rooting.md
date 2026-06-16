@@ -67,7 +67,7 @@ Do not promote:
 
 ## Source References
 
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/08-root-magisk-init-boot.md`
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/11-magisk-to-kernelsu.md`
-- `/home/richtofen/.android/devices/RedMagic-11-Pro/output/notes-archive/rm11-notes-pre-categorize-20260608-215543.tar.gz`
+- `<repo-root>/docs/08-root-magisk-init-boot.md`
+- `<repo-root>/docs/11-magisk-to-kernelsu.md`
+- `<local-build-root>/devices/RedMagic-11-Pro/output/notes-archive/rm11-notes-pre-categorize-20260608-215543.tar.gz`
 - `/mnt/e/Android/RM-11-Pro/staging-notes/KSU_PATCHING.md`

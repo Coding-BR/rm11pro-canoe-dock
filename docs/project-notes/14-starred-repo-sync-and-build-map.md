@@ -32,14 +32,14 @@ High priority:
 
 Local state:
 
-- `/home/richtofen/.android/repositories/MainAssets/references/codingbr_zte_sm88xx_twrp`
+- `<local-build-root>/references/codingbr_zte_sm88xx_twrp`
   tracks `Coding-BR/android_device_zte_sm88XX-twrp`, not the `Fractal-Echo`
   fork. Fetch-only check shows it is behind upstream by 22 commits and picked up
   new workflow tags.
 - D2N is now the current OrangeFox recovery baseline. Its frozen image hash is
   `a9c70ce885b025fc4b1618798b99bdc05b45239fa76c880415198ab26d9a5fd0`.
 - The working TWRP reference image is not present at
-  `/home/richtofen/.android/repositories/MainAssets/references/TWRP-3.7.1-16devreverse.img`.
+  `<local-build-root>/references/TWRP-3.7.1-16devreverse.img`.
 
 Next actions:
 
@@ -98,10 +98,10 @@ Useful repos:
 Local state:
 
 - `Redmagic-Control-Center` has a debug APK at
-  `/home/richtofen/.android/repositories/Redmagic-Control-Center/app/build/outputs/apk/debug/app-debug.apk`.
+  `<local-build-root>/repositories/Redmagic-Control-Center/app/build/outputs/apk/debug/app-debug.apk`.
   Its release signing path uses environment variables.
 - `NubiaToolkit` has a debug APK at
-  `/home/richtofen/.android/repositories/NubiaToolkit/app/build/outputs/apk/debug/app-debug.apk`.
+  `<local-build-root>/repositories/NubiaToolkit/app/build/outputs/apk/debug/app-debug.apk`.
   It also has a local `release-key.jks` and hardcoded release signing fields in
   Gradle. Treat that as cleanup-required before any public release.
 - `MainAssets/APK` already holds Winlator, GameHub, KernelFlasher,
@@ -168,7 +168,7 @@ Useful repos:
 Local state:
 
 - Core Droidspace repos were cloned/fetched into
-  `/home/richtofen/.android/repositories/droidspace-core` through
+  `<local-build-root>/repositories/droidspace-core` through
   `scripts/repo/sync-droidspace-core.sh`.
 - Heavy repos were deliberately deferred:
   - `Droidspaces-kernel`
@@ -178,7 +178,7 @@ Local state:
 - Droidspaces Android debug APK was built and promoted locally:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/APK/Droidspaces-OSS-v6.3.0-debug.apk
+<local-build-root>/APK/Droidspaces-OSS-v6.3.0-debug.apk
 size: 22524969
 sha256: 575260b1f3a31ed0c0a05e90d52b8d461306fbd7381addeb153d68b4038817a6
 package: com.droidspaces.app

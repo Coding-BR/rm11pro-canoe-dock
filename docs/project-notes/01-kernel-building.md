@@ -120,6 +120,6 @@ Do not promote:
 - `/mnt/e/Android/RM-11-Pro/staging-notes/README_X1_FRESH_START.md`
 - `/mnt/e/Android/RM-11-Pro/staging-notes/KERNEL_BUILDING_PATCHING.md`
 - `/mnt/e/Android/RM-11-Pro/staging-notes/ROM_MAKING_USEFUL_KEEPERS.md`
-- `/home/richtofen/.android/devices/RedMagic-11-Pro/output/notes-archive/rm11-notes-pre-categorize-20260608-215543.tar.gz`
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/09-anykernel3-gki.md`
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/10-kernelsu-next-susfs.md`
+- `<local-build-root>/devices/RedMagic-11-Pro/output/notes-archive/rm11-notes-pre-categorize-20260608-215543.tar.gz`
+- `<repo-root>/docs/09-anykernel3-gki.md`
+- `<repo-root>/docs/10-kernelsu-next-susfs.md`

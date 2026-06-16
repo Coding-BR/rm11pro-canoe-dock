@@ -3,7 +3,7 @@
 ## WSL Device Project
 
 ```text
-/home/richtofen/.android/devices/RedMagic-11-Pro
+<local-build-root>/devices/RedMagic-11-Pro
 ```
 
 Important subfolders:
@@ -50,7 +50,7 @@ High-value assets found:
 Local repository root:
 
 ```text
-/home/richtofen/.android/repositories
+<local-build-root>/repositories
 ```
 
 Primary GitHub star lists:
@@ -61,7 +61,7 @@ Primary GitHub star lists:
 ### rm11pro-canoe-dock
 
 ```text
-/home/richtofen/.android/repositories/rm11pro-canoe-dock
+<repo-root>
 ```
 
 Purpose:
@@ -97,7 +97,7 @@ https://github.com/Coding-BR/android_kernel_nubia_sm8850_qwjujube
 ### rm11pro-orangefox-recovery archived source
 
 ```text
-/home/richtofen/.android/repositories/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J
+<repo-root>/recovery/device/zte/sm88XX
 ```
 
 Purpose:
@@ -134,4 +134,4 @@ Do not commit:
 - random stock firmware blobs.
 - giant reverse-engineering dumps.
 - personal patched boot/init_boot images unless deliberately releasing and documented.
-- raw recovery images inside the dock repo; they now live under `/home/richtofen/.android/repositories/MainAssets/recovery-forensics`.
+- raw recovery images inside the dock repo; they now live under `<local-build-root>/recovery-forensics`.

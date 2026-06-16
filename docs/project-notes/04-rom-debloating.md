@@ -73,7 +73,7 @@ Do not promote:
 
 ## Source References
 
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/03-ota-disable.md`
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/xda-redmagic-11-pro-access-guide.md`
+- `<repo-root>/docs/03-ota-disable.md`
+- `<repo-root>/docs/xda-redmagic-11-pro-access-guide.md`
 - `/mnt/e/Android/RM-11-Pro/BOOT/04-ABL-Unlock-Debloat-16`
 - `/mnt/e/Android/RM-11-Pro/BOOT/04-ABL-Unlock-Debloat-Deodex-16`

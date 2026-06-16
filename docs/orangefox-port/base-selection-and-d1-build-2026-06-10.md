@@ -7,7 +7,7 @@ Target:
 - Device: REDMAGIC 11 Pro / NX809J
 - Product/platform evidence: canoe / sm8850
 - Recovery lane under test: Coding-BR sm88XX device tree inside the local Fox 14.1 source tree
-- Current local source tree: `/home/richtofen/.android/repositories/MainAssets/fox_14.1`
+- Current local source tree: `<orangefox-tree>`
 
 ## Question
 
@@ -157,7 +157,7 @@ Check summary:
 ## Build Command Used
 
 ```bash
-cd /home/richtofen/.android/repositories/MainAssets/fox_14.1
+cd <orangefox-tree>
 
 mkdir -p out/target/product/sm88XX/recovery/root
 rm -rf out/target/product/sm88XX/recovery/root/twres
@@ -178,13 +178,13 @@ Result: pass.
 
 Output images:
 
-- `/home/richtofen/.android/repositories/MainAssets/fox_14.1/out/target/product/sm88XX/recovery.img`
-- `/home/richtofen/.android/repositories/MainAssets/fox_14.1/out/target/product/sm88XX/OrangeFox-R12.0-Unofficial-NX809J.img`
+- `<orangefox-tree>/out/target/product/sm88XX/recovery.img`
+- `<orangefox-tree>/out/target/product/sm88XX/OrangeFox-R12.0-Unofficial-NX809J.img`
 
 Stable local evidence copy:
 
-- `/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d1-nodecrypt-ui-isolation/OrangeFox-R12.0-Unofficial-NX809J-d1-nodecrypt-ui-isolation.img`
-- `/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d1-nodecrypt-ui-isolation/recovery-d1-nodecrypt-ui-isolation.img`
+- `<local-build-root>/recovery-forensics/d1-nodecrypt-ui-isolation/OrangeFox-R12.0-Unofficial-NX809J-d1-nodecrypt-ui-isolation.img`
+- `<local-build-root>/recovery-forensics/d1-nodecrypt-ui-isolation/recovery-d1-nodecrypt-ui-isolation.img`
 
 Image facts:
 
@@ -199,7 +199,7 @@ Image facts:
 
 OrangeFox also produced a zip as part of its normal post-build step:
 
-- `/home/richtofen/.android/repositories/MainAssets/fox_14.1/out/target/product/sm88XX/OrangeFox-R12.0-Unofficial-NX809J.zip`
+- `<orangefox-tree>/out/target/product/sm88XX/OrangeFox-R12.0-Unofficial-NX809J.zip`
 - Zip size: `58632274` bytes
 - Zip SHA256: `e0a3eae32c802c2d7b1fb7e60b4e52ac8b3c5ee9214e31c978d5eb6524c4605e`
 

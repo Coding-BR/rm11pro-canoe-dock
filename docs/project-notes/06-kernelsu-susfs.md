@@ -61,7 +61,7 @@ Do not promote:
 
 ## Source References
 
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/09-anykernel3-gki.md`
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/10-kernelsu-next-susfs.md`
+- `<repo-root>/docs/09-anykernel3-gki.md`
+- `<repo-root>/docs/10-kernelsu-next-susfs.md`
 - `/mnt/e/Android/RM-11-Pro/staging-notes/KSU_PATCHING.md`
-- `/home/richtofen/.android/devices/RedMagic-11-Pro/kernels/AK3_OP15_OOS16_android16-6.12.23_KSUN_33068_SuSFS_v2.0.0`
+- `<local-build-root>/devices/RedMagic-11-Pro/kernels/AK3_OP15_OOS16_android16-6.12.23_KSUN_33068_SuSFS_v2.0.0`

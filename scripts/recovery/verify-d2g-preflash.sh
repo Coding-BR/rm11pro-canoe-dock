@@ -5,8 +5,8 @@ set -euo pipefail
 # It verifies the frozen image identity plus the built recovery-root markers
 # that prove the D2G overlay/property lane landed before any flash.
 
-FOX_DIR="${FOX_DIR:-/home/richtofen/.android/repositories/MainAssets/fox_14.1}"
-ARTIFACT_DIR="${ARTIFACT_DIR:-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d2g-crypto-enabled-manual-service-overlay}"
+FOX_DIR="${FOX_DIR:-${HOME}/.android/repositories/MainAssets/fox_14.1}"
+ARTIFACT_DIR="${ARTIFACT_DIR:-${HOME}/.android/repositories/MainAssets/recovery-forensics/d2g-crypto-enabled-manual-service-overlay}"
 IMAGE="${IMAGE:-${ARTIFACT_DIR}/OrangeFox-R12.0-Unofficial-NX809J-d2g-crypto-enabled-manual-service-overlay.img}"
 EXPECTED_BYTES="${EXPECTED_BYTES:-104857600}"
 EXPECTED_SHA256="${EXPECTED_SHA256:-a806ffcc82eeec0ffd29d2c07f5f8e6c9a8669fce783ce3901e4f6711baa9664}"

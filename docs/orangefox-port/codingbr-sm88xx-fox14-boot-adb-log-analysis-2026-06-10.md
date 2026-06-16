@@ -30,7 +30,7 @@ previous recovery_a backup was restored after capture
 Raw evidence stays local-only:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/codingbr-nx809j-boot-adb-splash-20260610-204358
+<local-build-root>/recovery-forensics/codingbr-nx809j-boot-adb-splash-20260610-204358
 ```
 
 ## Short Diagnosis
@@ -161,9 +161,9 @@ Scope:
 Likely local Fox tree changes:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/fox_14.1/device/zte/sm88XX/BoardConfig.mk
-/home/richtofen/.android/repositories/MainAssets/fox_14.1/device/zte/sm88XX/recovery/root/init.recovery.qcom.rc
-/home/richtofen/.android/repositories/MainAssets/fox_14.1/device/zte/sm88XX/recovery/root/vendor/etc/init/*.rc
+<orangefox-tree>/device/zte/sm88XX/BoardConfig.mk
+<orangefox-tree>/device/zte/sm88XX/recovery/root/init.recovery.qcom.rc
+<orangefox-tree>/device/zte/sm88XX/recovery/root/vendor/etc/init/*.rc
 ```
 
 Candidate actions:
@@ -192,8 +192,8 @@ Reboot System should be tested only after UI is visible.
 Rollback:
 
 ```text
-git -C /home/richtofen/.android/repositories/MainAssets/fox_14.1/device/zte/sm88XX diff
-git -C /home/richtofen/.android/repositories/MainAssets/fox_14.1/device/zte/sm88XX checkout -- <touched files>
+git -C <orangefox-tree>/device/zte/sm88XX diff
+git -C <orangefox-tree>/device/zte/sm88XX checkout -- <touched files>
 ```
 
 ### Candidate D2: Vendor Service Linker Fix, Crypto Still On

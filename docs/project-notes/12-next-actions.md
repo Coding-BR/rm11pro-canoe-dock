@@ -3,7 +3,7 @@
 ## Immediate
 
 1. Keep `rm11pro-canoe-dock` as the public dock, not a raw lab dump.
-2. Keep raw recovery forensics in `/home/richtofen/.android/repositories/MainAssets/recovery-forensics`; dock keeps summaries and a pointer README only.
+2. Keep raw recovery forensics in `<local-build-root>/recovery-forensics`; dock keeps summaries and a pointer README only.
 3. Treat D2N as the current OrangeFox recovery baseline, while still keeping
    operation-specific tests separate.
 4. Re-clone or fetch heavy kernel/GPU/container trees only when their lane is

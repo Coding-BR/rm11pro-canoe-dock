@@ -3,7 +3,7 @@
 Date: 2026-06-14
 
 This note records the current RM11 Pro / NX809J OrangeFox decrypt-candidate lane.
-Raw images and logs stay local under `/home/richtofen/.android/repositories/MainAssets/recovery-forensics`.
+Raw images and logs stay local under `<local-build-root>/recovery-forensics`.
 
 ## Summary
 
@@ -44,7 +44,7 @@ Intent:
 Frozen artifact:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d2g-crypto-enabled-manual-service-overlay/OrangeFox-R12.0-Unofficial-NX809J-d2g-crypto-enabled-manual-service-overlay.img
+<local-build-root>/recovery-forensics/d2g-crypto-enabled-manual-service-overlay/OrangeFox-R12.0-Unofficial-NX809J-d2g-crypto-enabled-manual-service-overlay.img
 size: 104857600
 sha256: a806ffcc82eeec0ffd29d2c07f5f8e6c9a8669fce783ce3901e4f6711baa9664
 ```
@@ -66,7 +66,7 @@ Preflash status:
 Local verification helper:
 
 ```bash
-/home/richtofen/.android/repositories/rm11pro-canoe-dock/scripts/recovery/verify-d2g-preflash.sh
+<repo-root>/scripts/recovery/verify-d2g-preflash.sh
 ```
 
 Current decision:

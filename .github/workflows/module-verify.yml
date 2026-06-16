@@ -1,0 +1,21 @@
+name: Module Verify
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  module-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify module lane
+        run: |
+          test -f modules/README.md
+          test -d scripts/ci
+          printf 'Module verifier placeholder passed.\n'

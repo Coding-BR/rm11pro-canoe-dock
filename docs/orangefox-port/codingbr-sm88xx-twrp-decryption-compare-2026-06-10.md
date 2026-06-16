@@ -27,13 +27,13 @@ Reference commit inspected:
 Local reference clone:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/references/codingbr_zte_sm88xx_twrp
+<local-build-root>/references/codingbr_zte_sm88xx_twrp
 ```
 
 Compared against:
 
 ```text
-/home/richtofen/.android/repositories/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J
+<repo-root>/recovery/device/zte/sm88XX
 ```
 
 No build, flash, or device write was performed for this comparison.

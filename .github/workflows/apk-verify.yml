@@ -1,0 +1,21 @@
+name: APK Verify
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  apk-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify APK lane
+        run: |
+          test -f apks/README.md
+          test -d scripts/ci
+          printf 'APK verifier placeholder passed.\n'

@@ -17,9 +17,9 @@ Current local paths:
 
 ```text
 /mnt/e/Android/RM-11-Pro/MODULES
-/home/richtofen/.android/toolbox/NubiaToolkit
-/home/richtofen/.android/toolbox/Redmagic-Control-Center
-/home/richtofen/.android/toolbox/reversa
+<local-build-root>/toolbox/NubiaToolkit
+<local-build-root>/toolbox/Redmagic-Control-Center
+<local-build-root>/toolbox/reversa
 ```
 
 Observed local module payloads:

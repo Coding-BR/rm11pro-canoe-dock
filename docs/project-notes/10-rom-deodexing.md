@@ -40,4 +40,4 @@ Do not promote:
 
 - `/mnt/e/Android/RM-11-Pro/BOOT/04-ABL-Unlock-Debloat-Deodex-16`
 - `/mnt/e/Android/RM-11-Pro/staging-notes/ROM_MAKING_USEFUL_KEEPERS.md`
-- `/home/richtofen/.android/devices/RedMagic-11-Pro/output/notes-archive/rm11-notes-pre-categorize-20260608-215543.tar.gz`
+- `<local-build-root>/devices/RedMagic-11-Pro/output/notes-archive/rm11-notes-pre-categorize-20260608-215543.tar.gz`

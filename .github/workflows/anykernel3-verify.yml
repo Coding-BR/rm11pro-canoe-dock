@@ -1,0 +1,21 @@
+name: AnyKernel3 Verify
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  anykernel3-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify AnyKernel3 lane
+        run: |
+          test -f anykernel3/README.md
+          test -d scripts/ci
+          printf 'AnyKernel3 verifier placeholder passed.\n'

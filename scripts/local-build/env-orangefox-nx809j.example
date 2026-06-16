@@ -1,0 +1,19 @@
+# Copy this file to env-orangefox-nx809j.local or pass it with --env.
+# Paths are examples. Keep private machine paths out of commits.
+
+ORANGEFOX_TREE="${HOME}/src/fox_14.1"
+
+# The public dock snapshot. The build script sets REPO_ROOT before sourcing this.
+DEVICE_TREE_SOURCE="${REPO_ROOT}/recovery/device/zte/sm88XX"
+DEVICE_TREE_DEST_REL="device/zte/sm88XX"
+
+# copy: rsync the dock tree into the OrangeFox checkout.
+# symlink: link the dock tree into the OrangeFox checkout.
+DEVICE_TREE_MODE="copy"
+
+PRODUCT_CODENAME="NX809J"
+LUNCH_TARGET="orangefox_NX809J-ap2a-eng"
+BUILD_GOALS="adbd recoveryimage"
+JOBS="$(nproc)"
+
+ARTIFACTS_DIR="${REPO_ROOT}/out/local-orangefox-nx809j"

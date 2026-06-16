@@ -43,7 +43,7 @@ Not changed:
 Command:
 
 ```bash
-cd /home/richtofen/.android/repositories/MainAssets/fox_14.1
+cd <orangefox-tree>
 source build/envsetup.sh
 export TARGET_PRODUCT=orangefox_NX809J_codingbr_d1t
 export TARGET_RELEASE=ap2a
@@ -58,7 +58,7 @@ Note: OrangeFox post-build packaging still tries to write `/OrangeFox-R12.0-Unof
 Preserved test image:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d1t-touch-input-isolation/OrangeFox-R12.0-Unofficial-NX809J-d1t-touch-input-isolation.img
+<local-build-root>/recovery-forensics/d1t-touch-input-isolation/OrangeFox-R12.0-Unofficial-NX809J-d1t-touch-input-isolation.img
 ```
 
 Artifact metadata:

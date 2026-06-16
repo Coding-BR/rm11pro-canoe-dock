@@ -4,7 +4,7 @@ set -euo pipefail
 # Collect read-only live recovery evidence over ADB. Does not flash.
 
 ADB="${ADB:-/mnt/c/platform-tools/adb.exe}"
-OUT_DIR="${OUT_DIR:-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/recovery-live-$(date +%Y%m%d-%H%M%S)}"
+OUT_DIR="${OUT_DIR:-${HOME}/.android/repositories/MainAssets/recovery-forensics/recovery-live-$(date +%Y%m%d-%H%M%S)}"
 
 fail() {
   echo "FAIL: $*" >&2

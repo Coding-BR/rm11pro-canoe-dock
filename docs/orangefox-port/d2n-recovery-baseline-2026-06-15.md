@@ -6,7 +6,7 @@ Device: REDMAGIC 11 Pro / RM11 Pro / NX809J / canoe.
 
 This note promotes D2N from probe candidate to the current OrangeFox recovery
 baseline for the local RM11 lab. Raw images and logs stay local under
-`/home/richtofen/.android/repositories/MainAssets/recovery-forensics`.
+`<local-build-root>/recovery-forensics`.
 
 ## Verdict
 
@@ -28,7 +28,7 @@ Observed result:
 Image:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d2n-auto-decrypt-ui-gatekeeper-polish/OrangeFox-R12.0-Unofficial-NX809J-d2n-auto-decrypt-ui-gatekeeper-polish.img
+<local-build-root>/recovery-forensics/d2n-auto-decrypt-ui-gatekeeper-polish/OrangeFox-R12.0-Unofficial-NX809J-d2n-auto-decrypt-ui-gatekeeper-polish.img
 size: 104857600
 sha256: a9c70ce885b025fc4b1618798b99bdc05b45239fa76c880415198ab26d9a5fd0
 ```
@@ -36,7 +36,7 @@ sha256: a9c70ce885b025fc4b1618798b99bdc05b45239fa76c880415198ab26d9a5fd0
 Zip:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d2n-auto-decrypt-ui-gatekeeper-polish/OrangeFox-R12.0-Unofficial-NX809J-d2n-auto-decrypt-ui-gatekeeper-polish.zip
+<local-build-root>/recovery-forensics/d2n-auto-decrypt-ui-gatekeeper-polish/OrangeFox-R12.0-Unofficial-NX809J-d2n-auto-decrypt-ui-gatekeeper-polish.zip
 size: 64548932
 sha256: 5394ee6e45417262f631c9783dc2904b5baeb2cbe9108561053b711c1ef62cab
 ```
@@ -58,7 +58,7 @@ scripts/recovery/verify-d2n-preflash.sh
 Passing log:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d2n-auto-decrypt-ui-gatekeeper-polish/logs/verify-d2n-preflash-rerun.log
+<local-build-root>/recovery-forensics/d2n-auto-decrypt-ui-gatekeeper-polish/logs/verify-d2n-preflash-rerun.log
 ```
 
 Verifier scope:
@@ -79,31 +79,31 @@ Verifier scope:
 Result summary:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d2n-live-probe-20260615-024231/result-summary.txt
+<local-build-root>/recovery-forensics/d2n-live-probe-20260615-024231/result-summary.txt
 ```
 
 Flash log:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d2n-live-probe-20260615-024231/00-flash/flash-d2n.log
+<local-build-root>/recovery-forensics/d2n-live-probe-20260615-024231/00-flash/flash-d2n.log
 ```
 
 Postboot capture:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d2n-live-probe-20260615-024231/01-postboot/postboot-summary.txt
+<local-build-root>/recovery-forensics/d2n-live-probe-20260615-024231/01-postboot/postboot-summary.txt
 ```
 
 Delayed capture:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d2n-live-probe-20260615-024231/02-delayed-status/delayed-summary.txt
+<local-build-root>/recovery-forensics/d2n-live-probe-20260615-024231/02-delayed-status/delayed-summary.txt
 ```
 
 Post-reboot partition readback:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d2n-live-probe-20260615-024231/03-readback-after-boot/recovery_a.sha256sum
+<local-build-root>/recovery-forensics/d2n-live-probe-20260615-024231/03-readback-after-boot/recovery_a.sha256sum
 ```
 
 Key live props:
@@ -180,12 +180,12 @@ Still needs separate tests:
 Known rollback candidates remain local:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d2m-auto-decrypt-libcxx-keystore/OrangeFox-R12.0-Unofficial-NX809J-d2m-auto-decrypt-libcxx-keystore.img
+<local-build-root>/recovery-forensics/d2m-auto-decrypt-libcxx-keystore/OrangeFox-R12.0-Unofficial-NX809J-d2m-auto-decrypt-libcxx-keystore.img
 sha256: 7a08ab7aaa14d839b5642507a4608710900d054a7af9724b35a385e2d13dac3a
 ```
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/TWRP-3.7.1-16devreverse.img
+<local-build-root>/recovery-forensics/TWRP-3.7.1-16devreverse.img
 sha256: dfeeb53817cde67ce3b5a93e5087d8395c4b4f1ca44aac793ad7aa704df34a10
 ```
 

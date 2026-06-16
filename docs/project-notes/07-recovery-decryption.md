@@ -59,7 +59,7 @@ When recovery UI boots, test in this order:
 Before any D2G flash, run:
 
 ```bash
-/home/richtofen/.android/repositories/rm11pro-canoe-dock/scripts/recovery/verify-d2g-preflash.sh
+<repo-root>/scripts/recovery/verify-d2g-preflash.sh
 ```
 
 The script must prove image size, frozen SHA-256, D2G AVB fingerprint, D2G
@@ -87,6 +87,6 @@ Do not promote:
 
 ## Source References
 
-- `/home/richtofen/.android/devices/RedMagic-11-Pro/output/notes-archive/rm11-notes-pre-categorize-20260608-215543.tar.gz`
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/13-custom-recovery-wip.md`
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/14-orangefox-wip.md`
+- `<local-build-root>/devices/RedMagic-11-Pro/output/notes-archive/rm11-notes-pre-categorize-20260608-215543.tar.gz`
+- `<repo-root>/docs/13-custom-recovery-wip.md`
+- `<repo-root>/docs/14-orangefox-wip.md`

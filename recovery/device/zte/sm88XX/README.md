@@ -78,7 +78,7 @@ The current local candidate keeps the recovery AVB signing metadata and also rep
 - Vendor blobs and HAL services are still inherited from the RM10 tree unless explicitly replaced in `device.mk`.
 - The experimental NX809J kernel work is useful context, but this tree currently uses stock RM11 prebuilts as the baseline.
 - Recovery boot failed on the first rooted-Android `recovery_a` test image. Live Android properties, by-name links, input device names, loaded modules, and basic sysfs paths have been captured.
-- The local OrangeFox source tree now exists at `/home/richtofen/.android/repositories/MainAssets/fox_14.1`; build validation passed again after the stock-fstab/minimal-init patch.
+- The local OrangeFox source tree now exists at `<orangefox-tree>`; build validation passed again after the stock-fstab/minimal-init patch.
 - Do not publish or retest the original failed OrangeFox image. The next eligible device-side test is the stock-fstab/minimal-init image only, and only as a cautious controlled one-slot test with stock `recovery_a` rollback ready.
 
 ## Building
@@ -115,10 +115,16 @@ cd ~/OrangeFox_sync
 ### Place device tree
 
 ```bash
-mkdir -p ~/fox_14.1/device/nubia
+mkdir -p ~/fox_14.1/device/zte
 git clone https://github.com/Fractal-Echo/rm11pro-canoe-dock ~/rm11pro-canoe-dock
 # Do not use --delete here; the local tree also holds untracked prebuilts and AVB test keys.
-rsync -a ~/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J/ ~/fox_14.1/device/nubia/NX809J/
+rsync -a ~/rm11pro-canoe-dock/recovery/device/zte/sm88XX/ ~/fox_14.1/device/zte/sm88XX/
+```
+
+The maintained dock helper for this step is:
+
+```bash
+~/rm11pro-canoe-dock/scripts/local-build/build-orangefox-nx809j-local.sh --env ~/rm11pro-canoe-dock/scripts/local-build/env-orangefox-nx809j.local --skip-build
 ```
 
 ### Build

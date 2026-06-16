@@ -32,7 +32,7 @@ Forensic finding:
 Current local test candidate:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d2g-crypto-enabled-manual-service-overlay/OrangeFox-R12.0-Unofficial-NX809J-d2g-crypto-enabled-manual-service-overlay.img
+<local-build-root>/recovery-forensics/d2g-crypto-enabled-manual-service-overlay/OrangeFox-R12.0-Unofficial-NX809J-d2g-crypto-enabled-manual-service-overlay.img
 sha256: a806ffcc82eeec0ffd29d2c07f5f8e6c9a8669fce783ce3901e4f6711baa9664
 size: 104857600 bytes
 ```

@@ -83,7 +83,7 @@ Do not promote:
 
 ## Source References
 
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/docs/12-gsi-rom-flow.md`
-- `/home/richtofen/.android/repositories/rm11pro-canoe-dock/releases/gsi-roms/README.md`
+- `<repo-root>/docs/12-gsi-rom-flow.md`
+- `<repo-root>/releases/gsi-roms/README.md`
 - `/mnt/e/Android/RM-11-Pro/staging-notes/ROM_GSI_BUILDING.md`
 - `/mnt/e/Android/RM-11-Pro/staging-notes/ROM_MAKING_USEFUL_KEEPERS.md`

@@ -11,7 +11,7 @@ https://github.com/Coding-BR/android_device_zte_sm88XX-twrp
 Local reference clone:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/references/codingbr_zte_sm88xx_twrp
+<local-build-root>/references/codingbr_zte_sm88xx_twrp
 ```
 
 Reference commit inspected:
@@ -23,7 +23,7 @@ Reference commit inspected:
 Compared against:
 
 ```text
-/home/richtofen/.android/repositories/rm11pro-canoe-dock/ports/orangefox-recovery/device_nubia_NX809J
+<repo-root>/recovery/device/zte/sm88XX
 ```
 
 No build, flash, device write, commit, push, or source-tree patch was performed.
@@ -82,7 +82,7 @@ docs/orangefox-port/candidate-diffs/candidate-a-sm8850-canoe-identity.diff
 Touched files:
 
 ```text
-ports/orangefox-recovery/device_nubia_NX809J/BoardConfig.mk
+recovery/device/zte/sm88XX/BoardConfig.mk
 ```
 
 Changes:
@@ -116,10 +116,10 @@ docs/orangefox-port/candidate-diffs/candidate-b-display-touch-input.diff
 Touched files:
 
 ```text
-ports/orangefox-recovery/device_nubia_NX809J/BoardConfig.mk
-ports/orangefox-recovery/device_nubia_NX809J/device.mk
-ports/orangefox-recovery/device_nubia_NX809J/recovery/root/init.recovery.qcom.rc
-ports/orangefox-recovery/device_nubia_NX809J/recovery/root/system/bin/unbind_inputs.sh
+recovery/device/zte/sm88XX/BoardConfig.mk
+recovery/device/zte/sm88XX/device.mk
+recovery/device/zte/sm88XX/recovery/root/init.recovery.qcom.rc
+recovery/device/zte/sm88XX/recovery/root/system/bin/unbind_inputs.sh
 ```
 
 Changes:
@@ -155,12 +155,12 @@ docs/orangefox-port/candidate-diffs/candidate-c-decryption-runtime-lane.diff
 Touched files:
 
 ```text
-ports/orangefox-recovery/device_nubia_NX809J/device.mk
-ports/orangefox-recovery/device_nubia_NX809J/recovery.fstab
-ports/orangefox-recovery/device_nubia_NX809J/recovery/root/init.recovery.qcom.rc
-ports/orangefox-recovery/device_nubia_NX809J/recovery/root/system/etc/twrp.flags
-ports/orangefox-recovery/device_nubia_NX809J/recovery/root/vendor/bin/prepdecrypt.sh
-ports/orangefox-recovery/device_nubia_NX809J/recovery/root/vendor/etc/init/prepdecrypt.rc
+recovery/device/zte/sm88XX/device.mk
+recovery/device/zte/sm88XX/recovery.fstab
+recovery/device/zte/sm88XX/recovery/root/init.recovery.qcom.rc
+recovery/device/zte/sm88XX/recovery/root/system/etc/twrp.flags
+recovery/device/zte/sm88XX/recovery/root/vendor/bin/prepdecrypt.sh
+recovery/device/zte/sm88XX/recovery/root/vendor/etc/init/prepdecrypt.rc
 ```
 
 Changes:

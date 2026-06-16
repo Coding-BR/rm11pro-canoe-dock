@@ -53,7 +53,7 @@ Source changes:
 Exact patch:
 
 - `docs/orangefox-port/candidate-diffs/candidate-d1t3-minuitwrp-touch-normalization.diff`
-- `scripts/orangefox-sync/patches/patch-minuitwrp-nx809j-touch-fox_14.1.diff`
+- `recovery/patches/fox_14.1/patch-minuitwrp-nx809j-touch-fox_14.1.diff`
 
 Touched files in the local Fox source:
 
@@ -67,7 +67,7 @@ Touched files in the local Fox source:
 Command:
 
 ```bash
-cd "/home/richtofen/.android/repositories/MainAssets/fox_14.1"
+cd "<orangefox-tree>"
 source build/envsetup.sh
 lunch orangefox_NX809J_codingbr_d1t3-ap2a-eng
 mka recoveryimage
@@ -76,7 +76,7 @@ mka recoveryimage
 The first pass hit the known Fox 14.1 `twres` packaging timing issue. The local workaround was:
 
 ```bash
-cd "/home/richtofen/.android/repositories/MainAssets/fox_14.1"
+cd "<orangefox-tree>"
 rm -rf out/target/product/sm88XX/recovery/root/twres
 cp -a out/recovery/root/twres out/target/product/sm88XX/recovery/root/twres
 source build/envsetup.sh
@@ -89,7 +89,7 @@ Result: pass.
 Output image:
 
 ```text
-/home/richtofen/.android/repositories/MainAssets/recovery-forensics/d1t3-minuitwrp-touch-normalization/OrangeFox-R12.0-Unofficial-NX809J-d1t3-minuitwrp-touch-normalization.img
+<local-build-root>/recovery-forensics/d1t3-minuitwrp-touch-normalization/OrangeFox-R12.0-Unofficial-NX809J-d1t3-minuitwrp-touch-normalization.img
 ```
 
 Artifact metadata:
