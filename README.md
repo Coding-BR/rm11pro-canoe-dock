@@ -8,7 +8,7 @@ The dock for RM11 Pro mods: unlock, root, KSU/SUSFS, AnyKernel3, GSI/ROM testing
 
 Route 1 safe public CI is merged to `main`. Public GitHub Actions verify recovery, AnyKernel3, APK, and module lanes, with one experimental OrangeFox build/release workflow for NX809J recovery artifacts. D2N is the current RM11 Pro NX809J/canoe recovery baseline, not a universal stable guarantee across every firmware or local modification state.
 
-An experimental GitHub Actions workflow can sync OrangeFox 14.1, build the current NX809J recovery tree, and publish a prerelease artifact. A generated release proves only that the image built in CI; it does not prove recovery boot, UI, ADB, touch, MTP, decryption, ZIP flashing, backup/restore, fastbootd, or USB OTG on a real device.
+An experimental GitHub Actions workflow can sync OrangeFox 14.1, build the current NX809J recovery tree, and update the single fixed prerelease `orangefox-nx809j-latest`. A generated release proves only that the image built in CI; it does not prove recovery boot, UI, ADB, touch, MTP, decryption, ZIP flashing, backup/restore, fastbootd, or USB OTG on a real device.
 
 ## Current Status
 
@@ -100,7 +100,7 @@ OrangeFox RM10 Pro to RM11 Pro port evidence lives in [OrangeFox Port Notes](doc
 
 The curated OrangeFox device-tree source snapshot lives in [recovery](recovery/README.md), with the active device tree at `recovery/device/zte/sm88XX`.
 
-Experimental OrangeFox build artifacts are published from the Actions workflow only when the public runner has enough disk to complete the sync and build. Treat those releases as test candidates and flash only with stock recovery rollback ready.
+Experimental OrangeFox build artifacts are published from the Actions workflow only when the public runner has enough disk to complete the sync and build. The workflow updates only the fixed `orangefox-nx809j-latest` release and replaces previous assets instead of accumulating automatic releases. Treat those artifacts as test candidates and flash only with stock recovery rollback ready.
 
 ## Release Policy
 

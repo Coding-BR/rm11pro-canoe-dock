@@ -14,8 +14,9 @@ fail clearly if the runner does not have enough disk space.
 - Run `bash -n` and ShellCheck on tracked shell scripts.
 - Verify local verifier scripts are executable.
 - Check packaging lanes have placeholder policy files.
-- Run the experimental OrangeFox build/release workflow on manual dispatch or
-  `orangefox-nx809j-*` tags.
+- Run the experimental OrangeFox build/release workflow on manual dispatch.
+  It updates the single fixed `orangefox-nx809j-latest` prerelease and replaces
+  previous assets instead of accumulating automatic releases.
 
 ## Forbidden In Public Actions
 
@@ -34,7 +35,8 @@ Full OrangeFox builds are attempted by
 runner path. GitHub-hosted standard runners may not have enough free disk for a
 full OrangeFox/AOSP sync and build, so the workflow must print `df -h` before
 and after large steps. If it fails for capacity, move the same workflow to a
-larger runner or self-hosted runner.
+larger runner or self-hosted runner. Successful runs publish to the single fixed
+`orangefox-nx809j-latest` release.
 
 ## Current Recovery Gate
 

@@ -3,12 +3,8 @@ name: OrangeFox Build And Release
 on:
   workflow_dispatch:
     inputs:
-      tag_name:
-        description: Optional release tag. Defaults to orangefox-nx809j-YYYYMMDD-runN.
-        required: false
-        type: string
       publish_release:
-        description: Publish a GitHub release after a successful build.
+        description: Publish or update the fixed orangefox-nx809j-latest release after a successful build.
         required: true
         default: true
         type: boolean
@@ -17,15 +13,12 @@ on:
         required: true
         default: true
         type: boolean
-  push:
-    tags:
-      - orangefox-nx809j-*
 
 permissions:
   contents: write
 
 concurrency:
-  group: orangefox-build-release-${{ github.ref }}
+  group: orangefox-nx809j-latest-release
   cancel-in-progress: false
 
 jobs:
@@ -40,6 +33,7 @@ jobs:
       LUNCH_TARGET: orangefox_NX809J-ap2a-eng
       BUILD_GOALS: adbd recoveryimage
       JOBS: 4
+      RELEASE_TAG: orangefox-nx809j-latest
     steps:
       - name: Checkout dock
         uses: actions/checkout@v4
@@ -149,26 +143,18 @@ jobs:
             ${{ env.ARTIFACTS_DIR }}/*
           if-no-files-found: error
 
-      - name: Resolve release tag
-        if: github.event_name == 'push' || inputs.publish_release
-        id: release_tag
+      - name: Move fixed release tag
+        if: inputs.publish_release
         run: |
           set -euxo pipefail
-          if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
-            tag="${GITHUB_REF_NAME}"
-          elif [ -n "${{ inputs.tag_name }}" ]; then
-            tag="${{ inputs.tag_name }}"
-          else
-            tag="orangefox-nx809j-$(date -u +%Y%m%d)-run${GITHUB_RUN_NUMBER}"
-          fi
-          printf 'tag=%s\n' "$tag" >>"$GITHUB_OUTPUT"
+          git tag -f "$RELEASE_TAG" "$GITHUB_SHA"
+          git push --force origin "refs/tags/$RELEASE_TAG"
 
       - name: Publish GitHub release
-        if: github.event_name == 'push' || inputs.publish_release
+        if: inputs.publish_release
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ steps.release_tag.outputs.tag }}
-          PRERELEASE: ${{ github.event_name == 'push' && 'true' || inputs.prerelease }}
+          PRERELEASE: ${{ inputs.prerelease }}
         run: |
           set -euxo pipefail
           assets=()
