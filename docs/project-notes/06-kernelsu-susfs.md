@@ -12,7 +12,7 @@ Validated public dock lane:
 Known package:
 
 ```text
-AK3_RM11Pro_Android16_6.12.23_KSUN_SuSFS_v2.1.0_TEST.zip
+AK3-RM11-OPWILD.zip
 ```
 
 SHA256:

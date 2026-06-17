@@ -5,7 +5,7 @@ This script does not flash, extract to the device, or modify the package.
 
 [CmdletBinding()]
 param(
-    [string]$PackagePath = "E:\Android\RM-11-Pro\KERNELS\BUILDS\AK3_RM11Pro_Android16_6.12.23_KSUN_SuSFS_v2.1.0.zip",
+    [string]$PackagePath = ".\AK3-RM11-OPWILD.zip",
     [string]$ExpectedSha256 = "7cac8a90fd065fd2f31f8e1938ece8f5bea061cbd8213a03e44b86ba50ea1b4a"
 )
 

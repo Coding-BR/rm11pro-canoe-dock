@@ -3,13 +3,14 @@
 Known validated AnyKernel package:
 
 ```text
-AK3_RM11Pro_Android16_6.12.23_KSUN_SuSFS_v2.1.0_TEST.zip
+AK3-RM11-OPWILD.zip
 ```
 
-Current local guarded package:
+Note:
 
 ```text
-/mnt/e/Android/RM-11-Pro/KERNELS/BUILDS/AK3_RM11Pro_Android16_6.12.23_KSUN_SuSFS_v2.1.0.zip
+The validated OP-WILD package is documented by hash/provenance. The local
+filename may differ.
 ```
 
 Final ZIP SHA-256:

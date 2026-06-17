@@ -1,6 +1,7 @@
 # Public release artifact hashes.
 #
-# Historical validated AnyKernel package, documented but not committed here:
-# 7CAC8A90FD065FD2F31F8E1938ECE8F5BEA061CBD8213A03E44B86BA50EA1B4A  AK3_RM11Pro_Android16_6.12.23_KSUN_SuSFS_v2.1.0_TEST.zip
-5394ee6e45417262f631c9783dc2904b5baeb2cbe9108561053b711c1ef62cab  releases/recovery/orangefox/d2n-baseline/OrangeFox-R12.0-Unofficial-NX809J-d2n-auto-decrypt-ui-gatekeeper-polish.zip
-c00f8f0ccc3b1b479e419634b15408d8dfbcd107ad4e3568f11c297661623056  releases/anykernel/rm11pro-android16-6.12.23-droidspace-goldbug-guarded/AK3_RM11Pro_Android16_6.12.23_Droidspace-Goldbug_Guarded_2026-06-16.zip
+# Historical validated OP-WILD AnyKernel package, documented but not committed here:
+# 7CAC8A90FD065FD2F31F8E1938ECE8F5BEA061CBD8213A03E44B86BA50EA1B4A
+f2547c3ff9d43b060ba0ece1e9f497e2de0fbe0180a6eb8bdde3df01d80ce0d3  releases/recovery/orangefox/current/OrangeFox-RM11.zip
+5394ee6e45417262f631c9783dc2904b5baeb2cbe9108561053b711c1ef62cab  releases/recovery/orangefox/d2n/OrangeFox-RM11-D2N.zip
+c00f8f0ccc3b1b479e419634b15408d8dfbcd107ad4e3568f11c297661623056  releases/anykernel/goldbug/AK3-RM11-Goldbug.zip

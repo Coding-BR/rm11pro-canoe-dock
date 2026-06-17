@@ -152,7 +152,7 @@ context=u:r:magisk:s0
 Validated test package:
 
 ```text
-AK3_RM11Pro_Android16_6.12.23_KSUN_SuSFS_v2.1.0_TEST.zip
+AK3-RM11-OPWILD.zip
 ```
 
 SHA-256:

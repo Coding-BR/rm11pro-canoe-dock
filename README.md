@@ -19,9 +19,22 @@ An experimental GitHub Actions workflow can sync OrangeFox 14.1, build the curre
 | OP-WILD AnyKernel3 KSU/SUSFS | Validated test build |
 | KernelSU-only root | Confirmed |
 | GSI / ROM flow | WIP / reports |
-| OrangeFox recovery | D2N current NX809J/canoe baseline |
+| OrangeFox recovery | Current short-name test package plus D2N fallback baseline |
 | AnyKernel3 / APK / module lanes | AnyKernel3 Droidspace prebuilt; APK/module verifier lanes staged |
 | Modules / RedMagic tools | WIP / verifier lane staged |
+
+## Current Downloads
+
+Short public names are used for files people are expected to download:
+
+| Lane | File | Status |
+|---|---|---|
+| OrangeFox recovery current test | [OrangeFox-RM11.zip](releases/recovery/orangefox/current/OrangeFox-RM11.zip) | v4 RM11 theme/splash test image, boots recovery in local visual test |
+| OrangeFox recovery fallback | [OrangeFox-RM11-D2N.zip](releases/recovery/orangefox/d2n/OrangeFox-RM11-D2N.zip) | D2N functional recovery baseline |
+| AnyKernel3 Goldbug test | [AK3-RM11-Goldbug.zip](releases/anykernel/goldbug/AK3-RM11-Goldbug.zip) | guarded experimental kernel package |
+
+The raw `recovery.img` is not committed separately because it is exactly
+`104857600` bytes. The OrangeFox zip contains `recovery.img`.
 
 ## Current Baseline
 
@@ -30,6 +43,8 @@ An experimental GitHub Actions workflow can sync OrangeFox 14.1, build the curre
 - Merge commit: `83bdd11786e92c24a94eb2b7e696f80324c810d7`.
 - D2N recovery image SHA256: `a9c70ce885b025fc4b1618798b99bdc05b45239fa76c880415198ab26d9a5fd0`.
 - D2N recovery zip SHA256: `5394ee6e45417262f631c9783dc2904b5baeb2cbe9108561053b711c1ef62cab`.
+- Current RM11 test recovery image SHA256: `b3c0cdeb3efbedf0903eced3a840523fe735ec27082c9f1f2bd826884166187f`.
+- Current RM11 test recovery zip SHA256: `f2547c3ff9d43b060ba0ece1e9f497e2de0fbe0180a6eb8bdde3df01d80ce0d3`.
 - Build policy: public CI verifies layout, scripts, hashes, and safety constraints only; full OrangeFox builds stay local/fork-owner controlled.
 
 ## NX809J Canoe Without A Paddle
@@ -92,6 +107,94 @@ If the phone enters a bootloop after installation, open ZTE Toolbox and select o
 4. Disable OTA before going online: [OTA Disable](docs/03-ota-disable.md).
 5. Back up critical partitions: [Backups And Privacy](docs/04-backups-and-privacy.md).
 
+## Flash OrangeFox After Unlock
+
+These steps start after bootloader unlock. They assume the device is RM11 Pro /
+REDMAGIC 11 Pro / NX809J (`canoe`) and Android can still boot.
+
+Fastboot on this device depends on the correct RM11 Pro ABL path. If you skip
+the ABL step, `fastboot devices` may hang or never expose usable partition
+flashing. Do not flash ABL from any other device, firmware family, or forum
+post.
+
+1. Back up the stock boot chain first:
+
+```powershell
+adb devices
+adb shell getprop ro.product.model
+adb shell getprop ro.product.device
+adb shell getprop ro.boot.slot_suffix
+```
+
+Expected device identity:
+
+```text
+model: REDMAGIC 11 Pro or NX809J
+device: NX809J, sm88XX, or canoe evidence path
+slot: _a or _b
+```
+
+2. Flash the known-good RM11 Pro ABL using the same EDL/toolbox partition-write
+   flow used for unlock. This is not a fastboot step, because fastboot is what
+   the ABL fix enables.
+
+```text
+target partitions: abl_a and abl_b
+file: your verified RM11 Pro/NX809J ABL image
+```
+
+After writing ABL, reboot to bootloader and confirm fastboot works:
+
+```powershell
+fastboot devices
+fastboot getvar product
+fastboot getvar current-slot
+fastboot getvar partition-size:recovery_a
+fastboot getvar partition-size:recovery_b
+```
+
+Expected:
+
+```text
+product: canoe
+current-slot: a or b
+partition-size:recovery_a: 0x6400000
+partition-size:recovery_b: 0x6400000
+```
+
+3. Extract `recovery.img` from `OrangeFox-RM11.zip` and verify it before
+   flashing:
+
+```powershell
+Expand-Archive .\OrangeFox-RM11.zip -DestinationPath .\OrangeFox-RM11
+Get-FileHash .\OrangeFox-RM11\recovery.img -Algorithm SHA256
+```
+
+Expected for the current RM11 theme/splash test image:
+
+```text
+b3c0cdeb3efbedf0903eced3a840523fe735ec27082c9f1f2bd826884166187f
+```
+
+4. Flash one recovery slot only. Start with `recovery_a` unless you have a
+   specific reason to test the other slot.
+
+```powershell
+fastboot flash recovery_a .\OrangeFox-RM11\recovery.img
+fastboot reboot recovery
+```
+
+5. Keep a rollback image ready before testing:
+
+```powershell
+fastboot flash recovery_a .\stock-recovery-a.img
+fastboot reboot recovery
+```
+
+Stop immediately if `fastboot getvar product` is not `canoe`, if the recovery
+partition size is not `0x6400000`, or if the recovery image hash does not match
+the published hash.
+
 ## Project Notes
 
 Merged RM11 working notes live in [Project Notes](docs/project-notes/README.md). These are categorized maintainer notes for kernel building, recovery, GSI/ROM work, rooting, KernelSU/SuSFS, module testing, decryption, debloat/deodex, APK tooling, assets, and kernel-lab provenance.
@@ -120,9 +223,9 @@ No artifact gets a stable label unless it has:
 
 ## Known Release Lanes
 
-- AnyKernel3 Droidspace Goldbug guarded: prebuilt package in [AnyKernel releases](releases/anykernel/README.md).
-- AnyKernel3 OP-WILD KSU/SUSFS: verifier lane staged in [AnyKernel3](anykernel3/README.md), older release notes are being reconciled before publication.
-- OrangeFox recovery: D2N prebuilt in [Recovery releases](releases/recovery/README.md), source lane in [recovery](recovery/README.md).
+- AnyKernel3 OP-WILD KSU/SUSFS: current DroidSpaces runtime lane documented in [AnyKernel releases](releases/anykernel/README.md).
+- AnyKernel3 Goldbug: guarded experimental package in [AnyKernel releases](releases/anykernel/README.md).
+- OrangeFox recovery: current short-name prebuilt in [Recovery releases](releases/recovery/README.md), source lane in [recovery](recovery/README.md).
 - APKs: verifier lane staged in [APKs](apks/README.md).
 - Modules and tools: verifier lane staged in [Modules](modules/README.md).
 - Droidspaces/container work: paused lane in [Container](container/README.md).

@@ -4,6 +4,7 @@ Public CI for this lane is verifier-only for now. Future work can add packaging
 metadata checks for published AnyKernel3 artifacts without running device or
 kernel builds on public pull requests.
 
-Current public prebuilt:
+Current public package docs:
 
-- [RM11 Pro Android 16 6.12.23 Droidspace Goldbug guarded](../releases/anykernel/rm11pro-android16-6.12.23-droidspace-goldbug-guarded/README.md)
+- [OP-WILD KernelSU-Next/SUSFS](../releases/anykernel/opwild/README.md)
+- [Goldbug guarded experimental package](../releases/anykernel/goldbug/README.md)

@@ -10,7 +10,7 @@ REPO_ROOT="$(cd -- "$SCRIPT_DIR/../.." && pwd)"
 
 FOX_DIR="${FOX_DIR:-${HOME}/.android/repositories/MainAssets/fox_14.1}"
 ARTIFACT_DIR="${ARTIFACT_DIR:-${HOME}/.android/repositories/MainAssets/recovery-forensics/d2n-auto-decrypt-ui-gatekeeper-polish}"
-IMAGE="${IMAGE:-${ARTIFACT_DIR}/OrangeFox-R12.0-Unofficial-NX809J-d2n-auto-decrypt-ui-gatekeeper-polish.img}"
+IMAGE="${IMAGE:-${ARTIFACT_DIR}/recovery.img}"
 EXPECTED_BYTES="${EXPECTED_BYTES:-104857600}"
 EXPECTED_SHA256="${EXPECTED_SHA256:-a9c70ce885b025fc4b1618798b99bdc05b45239fa76c880415198ab26d9a5fd0}"
 EXPECTED_FINGERPRINT_PART="${EXPECTED_FINGERPRINT_PART:-orangefox_NX809J_codingbr_d2n}"
