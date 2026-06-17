@@ -74,6 +74,8 @@ jobs:
           fi
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          sudo mkdir -p "$ORANGEFOX_TREE"
+          sudo chown -R "$USER:$USER" "$ORANGEFOX_TREE"
           sudo mkdir -p "$CCACHE_DIR"
           sudo chown -R "$USER:$USER" "$CCACHE_DIR"
           free -h
