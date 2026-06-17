@@ -26,9 +26,11 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 360
     env:
-      ORANGEFOX_TREE: ${{ github.workspace }}/fox_14.1
+      ORANGEFOX_TREE: /mnt/fox_14.1
       ARTIFACTS_DIR: ${{ github.workspace }}/out/github-orangefox-nx809j
       BUILD_ENV_FILE: ${{ github.workspace }}/out/github-orangefox-nx809j.env
+      CCACHE_DIR: /mnt/ccache
+      USE_CCACHE: 1
       PRODUCT_CODENAME: NX809J
       LUNCH_TARGET: orangefox_NX809J-ap2a-eng
       BUILD_GOALS: adbd recoveryimage
@@ -51,6 +53,10 @@ jobs:
           set -euxo pipefail
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL || true
           sudo rm -rf /opt/hostedtoolcache/Python /opt/hostedtoolcache/node || true
+          sudo rm -rf /usr/local/share/boost /usr/local/share/chromium /usr/local/lib/node_modules || true
+          sudo rm -rf /opt/az /opt/microsoft /opt/pipx /opt/google-cloud-cli || true
+          sudo swapoff -a || true
+          sudo rm -f /mnt/swapfile /swapfile || true
           sudo apt-get clean
           sudo docker system prune -af || true
           df -h
@@ -68,6 +74,7 @@ jobs:
           fi
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p "$CCACHE_DIR"
           free -h
           df -h
 
@@ -89,36 +96,36 @@ jobs:
             libssl-dev libwxgtk3.2-dev libxml2-dev \
             libxml2-utils lzop pngcrush repo rsync schedtool \
             squashfs-tools xsltproc zip zlib1g-dev "$jdk_package"
+          ccache --max-size=20G
           java -version
           df -h
 
       - name: Sync OrangeFox 14.1 source
         run: |
           set -euxo pipefail
-          available_gb="$(df -BG "$GITHUB_WORKSPACE" | awk 'NR==2 {gsub("G","",$4); print $4}')"
+          mkdir -p "$(dirname "$ORANGEFOX_TREE")"
+          available_gb="$(df -BG "$(dirname "$ORANGEFOX_TREE")" | awk 'NR==2 {gsub("G","",$4); print $4}')"
           if [ "$available_gb" -lt 120 ]; then
             printf 'WARN: only %sGB available before OrangeFox sync; this public runner may not be large enough for a full build.\n' "$available_gb"
           fi
-          git clone https://gitlab.com/OrangeFox/sync.git "$RUNNER_TEMP/OrangeFox_sync"
-          cd "$RUNNER_TEMP/OrangeFox_sync"
-          bash ./orangefox_sync.sh --branch 14.1 --path "$ORANGEFOX_TREE"
+          bash scripts/orangefox-sync/orangefox_sync.sh --branch 14.1 --path "$ORANGEFOX_TREE"
           df -h
 
       - name: Write build environment
         run: |
           set -euxo pipefail
           mkdir -p "$(dirname "$BUILD_ENV_FILE")"
-          cat >"$BUILD_ENV_FILE" <<EOF
-          ORANGEFOX_TREE="${ORANGEFOX_TREE}"
-          DEVICE_TREE_SOURCE="${GITHUB_WORKSPACE}/recovery/device/zte/sm88XX"
-          DEVICE_TREE_DEST_REL="device/nubia/NX809J"
-          DEVICE_TREE_MODE="copy"
-          PRODUCT_CODENAME="${PRODUCT_CODENAME}"
-          LUNCH_TARGET="${LUNCH_TARGET}"
-          BUILD_GOALS="${BUILD_GOALS}"
-          JOBS="${JOBS}"
-          ARTIFACTS_DIR="${ARTIFACTS_DIR}"
-          EOF
+          {
+            printf 'ORANGEFOX_TREE=%q\n' "$ORANGEFOX_TREE"
+            printf 'DEVICE_TREE_SOURCE=%q\n' "${GITHUB_WORKSPACE}/recovery/device/zte/sm88XX"
+            printf 'DEVICE_TREE_DEST_REL=%q\n' "device/nubia/NX809J"
+            printf 'DEVICE_TREE_MODE=%q\n' "copy"
+            printf 'PRODUCT_CODENAME=%q\n' "$PRODUCT_CODENAME"
+            printf 'LUNCH_TARGET=%q\n' "$LUNCH_TARGET"
+            printf 'BUILD_GOALS=%q\n' "$BUILD_GOALS"
+            printf 'JOBS=%q\n' "$JOBS"
+            printf 'ARTIFACTS_DIR=%q\n' "$ARTIFACTS_DIR"
+          } >"$BUILD_ENV_FILE"
           cat "$BUILD_ENV_FILE"
 
       - name: Build OrangeFox recovery
@@ -131,13 +138,13 @@ jobs:
         run: |
           set -euxo pipefail
           mkdir -p "$ARTIFACTS_DIR"
-          cat >"$ARTIFACTS_DIR/RELEASE-NOTES.md" <<'EOF'
-          OrangeFox NX809J build produced by GitHub Actions.
-
-          This is a build artifact, not proof that recovery boot, touch, ADB, MTP, decryption, flashing ZIPs, backup/restore, fastbootd, or USB OTG are working on-device.
-
-          Test cautiously on `recovery_a` first and keep stock recovery rollback ready.
-          EOF
+          {
+            printf '%s\n' 'OrangeFox NX809J build produced by GitHub Actions.'
+            printf '\n'
+            printf '%s\n' 'This is a build artifact, not proof that recovery boot, touch, ADB, MTP, decryption, flashing ZIPs, backup/restore, fastbootd, or USB OTG are working on-device.'
+            printf '\n'
+            printf '%s\n' 'Test cautiously on `recovery_a` first and keep stock recovery rollback ready.'
+          } >"$ARTIFACTS_DIR/RELEASE-NOTES.md"
           ls -lah "$ARTIFACTS_DIR"
 
       - name: Upload workflow artifact
